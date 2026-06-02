@@ -41,11 +41,11 @@
 
 ## 🚀 Quick Start
 
-### Step 1: Install CC Connect
+### Step 1: Download Control Panel
 
-```bash
-npm install -g cc-connect
-```
+Download the control panel files from this repository:
+- `Start-CC-Connect.vbs` (English version)
+- `启动CC-Connect控制面板.vbs` (中文版)
 
 ### Step 2: Run Control Panel
 
@@ -61,7 +61,7 @@ In the control panel, select:
 ```
 
 This will:
-1. Start CC Connect service
+1. Start CC Connect service (auto-installs if needed)
 2. Open Web UI in browser (http://localhost:9820)
 
 ### Step 4: Configure Project in Web UI

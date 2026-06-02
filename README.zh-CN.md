@@ -41,11 +41,11 @@
 
 ## 🚀 快速开始
 
-### 第 1 步：安装 CC Connect
+### 第 1 步：下载控制面板
 
-```bash
-npm install -g cc-connect
-```
+从本仓库下载控制面板文件：
+- `启动CC-Connect控制面板.vbs`（中文版）
+- `Start-CC-Connect.vbs`（English version）
 
 ### 第 2 步：运行控制面板
 
@@ -61,7 +61,7 @@ npm install -g cc-connect
 ```
 
 这会：
-1. 启动 CC Connect 服务
+1. 启动 CC Connect 服务（如未安装会自动安装）
 2. 在浏览器中打开 Web UI（http://localhost:9820）
 
 ### 第 4 步：在 Web UI 中配置项目

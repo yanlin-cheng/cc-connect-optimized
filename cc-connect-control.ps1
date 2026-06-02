@@ -1,6 +1,43 @@
 # CC Connect Control Panel
 $Host.UI.RawUI.WindowTitle = "CC Connect Control Panel"
 
+function Test-CCConnectInstalled {
+    $ccConnectPath = "C:\Users\cyl\AppData\Roaming\npm\cc-connect.cmd"
+    return (Test-Path $ccConnectPath)
+}
+
+function Install-CCConnect {
+    Write-Host ""
+    Write-Host "[INSTALL] CC Connect is not installed." -ForegroundColor Yellow
+    Write-Host "[INSTALL] Installing CC Connect via npm..." -ForegroundColor Yellow
+    Write-Host ""
+
+    # Check if npm is installed
+    try {
+        $npmVersion = npm --version
+        Write-Host "[INFO] npm version: $npmVersion" -ForegroundColor Cyan
+    } catch {
+        Write-Host "[ERROR] npm is not installed. Please install Node.js first." -ForegroundColor Red
+        Write-Host "[ERROR] Download Node.js from: https://nodejs.org/" -ForegroundColor Red
+        Read-Host "Press Enter to exit"
+        exit 1
+    }
+
+    # Install cc-connect
+    Write-Host "[INSTALL] Running: npm install -g cc-connect" -ForegroundColor Cyan
+    npm install -g cc-connect
+
+    if ($LASTEXITCODE -eq 0) {
+        Write-Host "[DONE] CC Connect installed successfully!" -ForegroundColor Green
+    } else {
+        Write-Host "[ERROR] Failed to install CC Connect." -ForegroundColor Red
+        Read-Host "Press Enter to exit"
+        exit 1
+    }
+
+    Write-Host ""
+}
+
 function Show-Menu {
     Clear-Host
     Write-Host ""
@@ -21,6 +58,12 @@ function Show-Menu {
 function Start-Service {
     Write-Host ""
     Write-Host "[START] Starting CC Connect service..." -ForegroundColor Green
+
+    # Check if cc-connect is installed
+    if (-not (Test-CCConnectInstalled)) {
+        Install-CCConnect
+    }
+
     $env:PATH += ";C:\Users\cyl\AppData\Roaming\npm"
     Start-Process -FilePath "C:\Users\cyl\AppData\Roaming\npm\cc-connect.cmd" -WindowStyle Hidden
     Write-Host "[DONE] Service started!" -ForegroundColor Green
@@ -52,6 +95,12 @@ function Open-Browser {
 function Start-AndOpen {
     Write-Host ""
     Write-Host "[START] Starting CC Connect service..." -ForegroundColor Green
+
+    # Check if cc-connect is installed
+    if (-not (Test-CCConnectInstalled)) {
+        Install-CCConnect
+    }
+
     $env:PATH += ";C:\Users\cyl\AppData\Roaming\npm"
     Start-Process -FilePath "C:\Users\cyl\AppData\Roaming\npm\cc-connect.cmd" -WindowStyle Hidden
     Write-Host "[WAIT] Waiting for service..." -ForegroundColor Yellow
