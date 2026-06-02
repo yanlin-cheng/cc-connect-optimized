@@ -1,15 +1,32 @@
 # CC Connect Control Panel
 $Host.UI.RawUI.WindowTitle = "CC Connect Control Panel"
 
+# Get script directory
+$ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
+
 function Test-CCConnectInstalled {
-    $ccConnectPath = "C:\Users\cyl\AppData\Roaming\npm\cc-connect.cmd"
-    return (Test-Path $ccConnectPath)
+    # Check local installation (script directory)
+    $localPath = Join-Path $ScriptDir "node_modules\.bin\cc-connect.cmd"
+    if (Test-Path $localPath) {
+        return $true
+    }
+    return $false
+}
+
+function Get-CCConnectPath {
+    # Return local installation path
+    $localPath = Join-Path $ScriptDir "node_modules\.bin\cc-connect.cmd"
+    if (Test-Path $localPath) {
+        return $localPath
+    }
+    return $null
 }
 
 function Install-CCConnect {
     Write-Host ""
     Write-Host "[INSTALL] CC Connect is not installed." -ForegroundColor Yellow
-    Write-Host "[INSTALL] Installing CC Connect via npm..." -ForegroundColor Yellow
+    Write-Host "[INSTALL] Installing CC Connect to script directory..." -ForegroundColor Yellow
+    Write-Host "[INSTALL] Location: $ScriptDir" -ForegroundColor Cyan
     Write-Host ""
 
     # Check if npm is installed
@@ -23,12 +40,15 @@ function Install-CCConnect {
         exit 1
     }
 
-    # Install cc-connect
-    Write-Host "[INSTALL] Running: npm install -g cc-connect" -ForegroundColor Cyan
-    npm install -g cc-connect
+    # Install cc-connect locally
+    Write-Host "[INSTALL] Running: npm install cc-connect" -ForegroundColor Cyan
+    Push-Location $ScriptDir
+    npm install cc-connect
+    Pop-Location
 
     if ($LASTEXITCODE -eq 0) {
         Write-Host "[DONE] CC Connect installed successfully!" -ForegroundColor Green
+        Write-Host "[DONE] Installed to: $ScriptDir\node_modules\.bin\cc-connect.cmd" -ForegroundColor Green
     } else {
         Write-Host "[ERROR] Failed to install CC Connect." -ForegroundColor Red
         Read-Host "Press Enter to exit"
@@ -53,6 +73,17 @@ function Show-Menu {
     Write-Host ""
     Write-Host "  ==========================================" -ForegroundColor Cyan
     Write-Host ""
+
+    # Show installation status
+    if (Test-CCConnectInstalled) {
+        $ccConnectPath = Get-CCConnectPath
+        Write-Host "  Status: CC Connect installed" -ForegroundColor Green
+        Write-Host "  Location: $ccConnectPath" -ForegroundColor Gray
+    } else {
+        Write-Host "  Status: CC Connect not installed" -ForegroundColor Yellow
+        Write-Host "  Will install on first use" -ForegroundColor Gray
+    }
+    Write-Host ""
 }
 
 function Start-Service {
@@ -64,8 +95,8 @@ function Start-Service {
         Install-CCConnect
     }
 
-    $env:PATH += ";C:\Users\cyl\AppData\Roaming\npm"
-    Start-Process -FilePath "C:\Users\cyl\AppData\Roaming\npm\cc-connect.cmd" -WindowStyle Hidden
+    $ccConnectPath = Get-CCConnectPath
+    Start-Process -FilePath $ccConnectPath -WindowStyle Hidden
     Write-Host "[DONE] Service started!" -ForegroundColor Green
     Write-Host ""
     Write-Host "Web UI: http://localhost:9820" -ForegroundColor White
@@ -101,8 +132,8 @@ function Start-AndOpen {
         Install-CCConnect
     }
 
-    $env:PATH += ";C:\Users\cyl\AppData\Roaming\npm"
-    Start-Process -FilePath "C:\Users\cyl\AppData\Roaming\npm\cc-connect.cmd" -WindowStyle Hidden
+    $ccConnectPath = Get-CCConnectPath
+    Start-Process -FilePath $ccConnectPath -WindowStyle Hidden
     Write-Host "[WAIT] Waiting for service..." -ForegroundColor Yellow
     Start-Sleep -Seconds 5
     Write-Host "[BROWSER] Opening Web UI..." -ForegroundColor Yellow

@@ -43,9 +43,11 @@
 
 ### 第 1 步：下载控制面板
 
-从本仓库下载控制面板文件：
-- `启动CC-Connect控制面板.vbs`（中文版）
-- `Start-CC-Connect.vbs`（English version）
+下载控制面板文件：
+- [启动CC-Connect控制面板.vbs](启动CC-Connect控制面板.vbs)（中文版）
+- [Start-CC-Connect.vbs](Start-CC-Connect.vbs)（English version）
+
+**💡 提示：** 创建一个文件夹（如 `D:\MyTools\cc-connect\`），把 VBS 文件放进去。CC Connect 会自动安装到该文件夹。
 
 ### 第 2 步：运行控制面板
 
@@ -61,8 +63,9 @@
 ```
 
 这会：
-1. 启动 CC Connect 服务（如未安装会自动安装）
-2. 在浏览器中打开 Web UI（http://localhost:9820）
+1. 安装 CC Connect 到脚本所在目录（如未安装）
+2. 启动 CC Connect 服务
+3. 在浏览器中打开 Web UI（http://localhost:9820）
 
 ### 第 4 步：在 Web UI 中配置项目
 

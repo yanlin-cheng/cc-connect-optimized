@@ -43,9 +43,11 @@
 
 ### Step 1: Download Control Panel
 
-Download the control panel files from this repository:
-- `Start-CC-Connect.vbs` (English version)
-- `启动CC-Connect控制面板.vbs` (中文版)
+Download the control panel files:
+- [Start-CC-Connect.vbs](Start-CC-Connect.vbs) (English version)
+- [启动CC-Connect控制面板.vbs](启动CC-Connect控制面板.vbs) (中文版)
+
+**💡 Tip:** Create a folder (e.g., `D:\MyTools\cc-connect\`) and put the VBS file there. CC Connect will be installed to that folder automatically.
 
 ### Step 2: Run Control Panel
 
@@ -61,8 +63,9 @@ In the control panel, select:
 ```
 
 This will:
-1. Start CC Connect service (auto-installs if needed)
-2. Open Web UI in browser (http://localhost:9820)
+1. Install CC Connect to script directory (if not installed)
+2. Start CC Connect service
+3. Open Web UI in browser (http://localhost:9820)
 
 ### Step 4: Configure Project in Web UI
 
