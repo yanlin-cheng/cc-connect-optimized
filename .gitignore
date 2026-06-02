@@ -31,3 +31,7 @@ node_modules/
 .env
 .env.local
 .env.*.local
+
+# Ignore original project files
+cc-connect-main/
+cc-connect-main.zip

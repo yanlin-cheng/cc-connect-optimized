@@ -64,50 +64,67 @@ npm install -g cc-connect
 1. 启动 CC Connect 服务
 2. 在浏览器中打开 Web UI（http://localhost:9820）
 
-### 第 4 步：配置项目
+### 第 4 步：在 Web UI 中配置项目
 
 1. 在浏览器中打开 Web UI
 2. 使用 API Token 登录（首次运行时自动生成，见控制面板显示）
-3. 创建你的项目
-4. 设置工作目录（你的项目文件夹）
+3. 点击「项目」→「添加项目」
+4. 填写项目信息：
+   - **项目名称：** 如 `my-project`
+   - **工作目录：** 你的项目文件夹路径
+   - **Agent 类型：** `claudecode`
 
 ### 第 5 步：添加聊天平台
 
-**飞书配置：**
-1. 访问 [飞书开放平台](https://open.feishu.cn/)
-2. 创建企业自建应用
-3. 获取 `app_id` 和 `app_secret`
-4. 在 Web UI 中添加飞书平台
+**飞书接入：**
+1. 在项目设置中点击「添加平台」
+2. 选择「飞书」
+3. 点击「扫码创建」按钮
+4. 用飞书 App 扫描二维码
+5. 配置会自动写入
 
-**企业微信配置：**
-1. 登录 [企业微信管理后台](https://work.weixin.qq.com/wework_admin/frame)
-2. 创建智能机器人
-3. 获取 `bot_id` 和 `bot_secret`
-4. 在 Web UI 中添加企业微信平台
+**企业微信接入：**
+1. 在项目设置中点击「添加平台」
+2. 选择「企业微信」
+3. 选择「WebSocket」模式
+4. 填入 `BotID` 和 `Secret`
+
+> 📖 **详细指南：**
+> - [飞书接入指南](docs/feishu-setup.md)
+> - [企业微信接入指南](docs/wecom-setup.md)
 
 ### 第 6 步：手机使用
 
 1. 在手机上打开飞书/微信
-2. 找到你的机器人
+2. 找到你的机器人（搜索机器人名称）
 3. 开始对话！
 
 ---
 
-## 💡 使用建议
+## 💡 推荐工作流程
 
-### 创建桌面快捷方式（推荐）
+### 最佳实践：Web UI + 直接对话
 
-测试成功后，建议创建桌面快捷方式：
+**这是最方便的方式：**
 
-1. 右键点击 `启动CC-Connect控制面板.vbs`
-2. 选择"创建快捷方式"
-3. 将快捷方式移动到桌面
+1. **打开 Web UI** → 新建项目 → 扫码接入飞书
+2. **配置企业微信**（可选）→ 更方便手机使用
+3. **直接与机器人对话** → 不需要建立多个群聊
+4. **创建新会话** → 使用 `/new` 处理不同任务
+
+### 为什么推荐这种方式？
+
+- ✅ **不需要群聊** - 直接与机器人私聊
+- ✅ **多个机器人** - 每个项目有自己的机器人
+- ✅ **会话管理** - 使用 `/new`、`/list`、`/switch`
+- ✅ **方便切换** - 在 Web UI 中切换项目
 
 ### 日常使用流程
 
 1. **早上：** 双击桌面快捷方式 → 选择 `[4] Start + Open Browser`
-2. **使用：** 在手机上通过飞书/微信与 AI 对话
-3. **晚上：** 在控制面板中选择 `[2] Stop Service`
+2. **配置：** 如需要，在 Web UI 中设置项目
+3. **使用：** 在手机上通过飞书/微信与 AI 对话
+4. **晚上：** 在控制面板中选择 `[2] Stop Service`
 
 ---
 
@@ -120,7 +137,7 @@ npm install -g cc-connect
 
 ### 需要手动获取的密钥
 
-- **飞书 `app_id` / `app_secret`** - 在飞书开放平台创建应用后获取
+- **飞书 `app_id` / `app_secret`** - 在飞书开放平台创建应用后获取（或在 Web UI 中扫码）
 - **企业微信 `bot_id` / `bot_secret`** - 在企业微信管理后台创建机器人后获取
 
 ---
@@ -136,24 +153,24 @@ cc-connect-优化版/
 ├── README.md                       # 英文说明文档
 ├── README.zh-CN.md                 # 中文说明文档（本文件）
 ├── config.example.toml             # 示例配置文件
-└── docs/                           # 原项目文档
+└── docs/
+    ├── feishu-setup.md             # 飞书接入指南
+    └── wecom-setup.md              # 企业微信接入指南
 ```
 
 ---
 
-## 📚 更多文档
+## 📚 文档说明
 
-- [原项目](https://github.com/chenhg5/cc-connect)
-- [飞书接入指南](docs/feishu.md)
-- [企业微信接入指南](docs/wecom.md)
-- [钉钉接入指南](docs/dingtalk.md)
-- [Telegram 接入指南](docs/telegram.md)
+- [飞书接入指南](docs/feishu-setup.md) - 如何接入飞书
+- [企业微信接入指南](docs/wecom-setup.md) - 如何接入企业微信
+- [原项目文档](https://github.com/chenhg5/cc-connect) - 完整文档
 
 ---
 
 ## 📧 联系方式
 
-- GitHub: [cc-connect-optimized](https://github.com/your-username/cc-connect-optimized)
+- GitHub: [cc-connect-optimized](https://github.com/yanlin-cheng/cc-connect-optimized)
 - 邮箱: yanlin.cheng@foxmail.com
 
 ---

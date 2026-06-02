@@ -64,50 +64,67 @@ This will:
 1. Start CC Connect service
 2. Open Web UI in browser (http://localhost:9820)
 
-### Step 4: Configure Project
+### Step 4: Configure Project in Web UI
 
 1. Open Web UI in browser
 2. Login with API Token (auto-generated, shown in control panel)
-3. Create your project
-4. Set work directory (your project folder)
+3. Click "Projects" → "Add Project"
+4. Fill in:
+   - **Project Name:** e.g., `my-project`
+   - **Work Directory:** Your project folder path
+   - **Agent Type:** `claudecode`
 
 ### Step 5: Add Chat Platform
 
 **Feishu (飞书):**
-1. Visit [Feishu Open Platform](https://open.feishu.cn/)
-2. Create enterprise self-built application
-3. Get `app_id` and `app_secret`
-4. In Web UI, add Feishu platform
+1. In project settings, click "Add Platform"
+2. Select "Feishu"
+3. Click "Scan QR Code" button
+4. Scan with Feishu App
+5. Configuration will be auto-saved
 
 **WeChat Work (企业微信):**
-1. Login to [WeChat Work Admin](https://work.weixin.qq.com/wework_admin/frame)
-2. Create intelligent bot
-3. Get `bot_id` and `bot_secret`
-4. In Web UI, add WeChat Work platform
+1. In project settings, click "Add Platform"
+2. Select "WeChat Work"
+3. Choose "WebSocket" mode
+4. Fill in `BotID` and `Secret`
+
+> 📖 **Detailed guides:**
+> - [Feishu Setup Guide](docs/feishu-setup.md)
+> - [WeChat Work Setup Guide](docs/wecom-setup.md)
 
 ### Step 6: Use on Mobile
 
 1. Open Feishu/WeChat on your phone
-2. Find your bot
+2. Find your bot (search by bot name)
 3. Start chatting!
 
 ---
 
-## 💡 Usage Tips
+## 💡 Recommended Workflow
 
-### Create Desktop Shortcut (Recommended)
+### Best Practice: Web UI + Direct Chat
 
-After testing successfully, create a desktop shortcut:
+**This is the most convenient way:**
 
-1. Right-click `Start-CC-Connect.vbs`
-2. Select "Create shortcut"
-3. Move shortcut to desktop
+1. **Open Web UI** → Create project → Scan QR code to connect Feishu
+2. **Configure WeChat Work** (optional) → More convenient for mobile
+3. **Direct chat with bot** → No need to create multiple groups
+4. **Create new sessions** → Use `/new` for different tasks
+
+### Why This Workflow?
+
+- ✅ **No group chat needed** - Direct private chat with bot
+- ✅ **Multiple bots** - Each project has its own bot
+- ✅ **Session management** - Use `/new`, `/list`, `/switch`
+- ✅ **Easy switching** - Switch between projects in Web UI
 
 ### Daily Workflow
 
 1. **Morning:** Double-click desktop shortcut → Select `[4] Start + Open Browser`
-2. **Use:** Chat with AI on mobile (Feishu/WeChat)
-3. **Evening:** Select `[2] Stop Service` in control panel
+2. **Configure:** Set up project in Web UI if needed
+3. **Use:** Chat with AI on mobile (Feishu/WeChat)
+4. **Evening:** Select `[2] Stop Service` in control panel
 
 ---
 
@@ -120,7 +137,7 @@ After testing successfully, create a desktop shortcut:
 
 ### Manual Configuration Required
 
-- **Feishu `app_id` / `app_secret`** - Get from Feishu Open Platform
+- **Feishu `app_id` / `app_secret`** - Get from Feishu Open Platform (or scan QR code in Web UI)
 - **WeChat Work `bot_id` / `bot_secret`** - Get from WeChat Work Admin
 
 ---
@@ -136,24 +153,24 @@ cc-connect-optimized/
 ├── README.md                       # This file
 ├── README.zh-CN.md                 # Chinese version
 ├── config.example.toml             # Example config
-└── docs/                           # Original docs
+└── docs/
+    ├── feishu-setup.md             # Feishu setup guide
+    └── wecom-setup.md              # WeChat Work setup guide
 ```
 
 ---
 
-## 📚 More Documentation
+## 📚 Documentation
 
-- [Original Project](https://github.com/chenhg5/cc-connect)
-- [Feishu Guide](docs/feishu.md)
-- [WeChat Work Guide](docs/wecom.md)
-- [DingTalk Guide](docs/dingtalk.md)
-- [Telegram Guide](docs/telegram.md)
+- [Feishu Setup Guide](docs/feishu-setup.md) - How to connect Feishu
+- [WeChat Work Setup Guide](docs/wecom-setup.md) - How to connect WeChat Work
+- [Original Project](https://github.com/chenhg5/cc-connect) - Full documentation
 
 ---
 
 ## 📧 Contact
 
-- GitHub: [cc-connect-optimized](https://github.com/your-username/cc-connect-optimized)
+- GitHub: [cc-connect-optimized](https://github.com/yanlin-cheng/cc-connect-optimized)
 - Email: yanlin.cheng@foxmail.com
 
 ---
