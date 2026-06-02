@@ -1,0 +1,97 @@
+# CC Connect Configuration Example
+# See: https://github.com/chenhg5/cc-connect/blob/main/config.example.toml
+
+data_dir = ""
+attachment_send = ""
+language = "zh"
+
+[log]
+level = "info"
+
+# ===========================================
+# Project Configuration
+# ===========================================
+
+[[projects]]
+name = "my-project"
+
+[projects.agent]
+type = "claudecode"
+
+[projects.agent.options]
+work_dir = "H:/your/project/path"
+mode = "yolo"
+
+# Feishu Platform
+[[projects.platforms]]
+type = "feishu"
+
+[projects.platforms.options]
+app_id = "your-feishu-app-id"
+app_secret = "your-feishu-app-secret"
+
+# WeChat Work Platform (Optional)
+# [[projects.platforms]]
+# type = "wecom"
+#
+# [projects.platforms.options]
+# mode = "websocket"
+# bot_id = "your-wecom-bot-id"
+# bot_secret = "your-wecom-bot-secret"
+# allow_from = "*"
+
+# ===========================================
+# Management API Configuration
+# Note: token is auto-generated on first run
+# ===========================================
+
+[management]
+enabled = true
+port = 9820
+token = ""  # Auto-generated, no need to fill
+cors_origins = ["*"]
+
+# ===========================================
+# Bridge Configuration
+# Note: token is auto-generated on first run
+# ===========================================
+
+[bridge]
+enabled = true
+port = 9810
+token = ""  # Auto-generated, no need to fill
+cors_origins = ["*"]
+
+# ===========================================
+# Speech Configuration (Optional)
+# ===========================================
+
+[speech]
+enabled = false
+provider = ""
+language = ""
+
+# ===========================================
+# TTS Configuration (Optional)
+# ===========================================
+
+[tts]
+enabled = false
+provider = ""
+voice = ""
+tts_mode = ""
+max_text_len = 0
+
+# ===========================================
+# Cron Configuration
+# ===========================================
+
+[cron]
+session_mode = ""
+
+# ===========================================
+# Webhook Configuration
+# ===========================================
+
+[webhook]
+port = 0
