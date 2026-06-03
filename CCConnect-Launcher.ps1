@@ -194,20 +194,22 @@ if ($ccStatus -eq "not_found") {
     Write-Host ""
     $install = Read-Host "  Install now? / 现在安装? (Y/N)"
     if ($install -eq "Y" -or $install -eq "y") {
-        if (-not (Install-CCConnect)) {
+        if (Install-CCConnect) {
+            Write-Host ""
+            Write-Host "  CC Connect is ready / CC Connect 已就绪" -ForegroundColor Green
+            Start-Sleep -Seconds 2
+        } else {
             Write-Host ""
             Write-Host "  Installation failed. Please install manually." -ForegroundColor Red
             Write-Host "  安装失败，请手动安装。" -ForegroundColor Red
-            Write-Host ""
-            Read-Host "  Press Enter / 按回车退出"
+            Start-Sleep -Seconds 3
             exit
         }
     } else {
         Write-Host ""
         Write-Host "  CC Connect is required to use this tool." -ForegroundColor Yellow
         Write-Host "  使用本工具需要安装 CC Connect。" -ForegroundColor Yellow
-        Write-Host ""
-        Read-Host "  Press Enter / 按回车退出"
+        Start-Sleep -Seconds 2
         exit
     }
 } else {
@@ -226,7 +228,7 @@ if ($agents.Count -eq 0) {
     Write-Host "  - Claude Code, Codex, Cursor, Gemini CLI" -ForegroundColor Cyan
     Write-Host "  - Qwen Code, Tencent CodeBuddy, Xiaomi MiMo" -ForegroundColor Cyan
     Write-Host ""
-    Read-Host "  Press Enter to continue / 按回车继续"
+    Start-Sleep -Seconds 3
 } else {
     Write-Host "  AI Agent found / 检测到代理: $($agents -join ', ')" -ForegroundColor Green
     Write-Host ""
