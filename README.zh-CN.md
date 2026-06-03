@@ -1,123 +1,111 @@
 # CC Connect 优化版
 
-> 我用了 CC Connect 之后觉得挺好用的，但每天用命令启动服务有点麻烦，所以做了一个启动程序，双击就能用。
+这是 [CC Connect](https://github.com/wildancv/cc-connect) 的优化版本，增加了可视化控制面板，让任何人都能轻松使用。
 
-<p align="center">
-  <a href="https://github.com/chenhg5/cc-connect/blob/main/LICENSE">
-    <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License"/>
-  </a>
-</p>
+## 快速开始
 
-<p align="center">
-  <a href="./README.md">English</a> | <a href="./README.zh-CN.md">中文</a>
-</p>
+### 下载
 
----
+下载启动器脚本：
 
-## 🎯 这是什么
+**[下载 CCConnect-Launcher.ps1](https://github.com/yanlin-cheng/cc-connect-optimized/releases/latest/download/CCConnect-Launcher.ps1)**
 
-CC Connect 是一个可以把电脑上的 AI 连接到手机聊天软件的工具。我用了之后觉得很好，但每天输命令启动有点麻烦，所以做了一个启动程序：
+### 安装
 
-- 双击就能启动服务
-- 自动打开浏览器
-- 自动检测并安装依赖
-- 支持中英文
+1. 创建一个文件夹，用于安装 CC Connect
+2. 将下载的 `CCConnect-Launcher.ps1` 移动到该文件夹
+3. 右键点击文件 -> 选择 **"使用 PowerShell 运行"**
 
----
+完成！控制面板会引导你完成后续操作。
 
-## 🚀 怎么用
+### 首次使用
 
-### 第 1 步：下载
+第一次运行脚本时：
 
-点击下面的链接直接下载（两个文件都要下载）：
+1. 如果没有安装 CC Connect，会询问是否安装（输入 `Y` 并按回车）
+2. 安装完成后，按 `5` 创建桌面快捷方式，方便以后使用
+3. 按 `4` 启动服务并打开网页界面
+4. 在网页界面中配置聊天平台（推荐飞书，扫码即可！）
 
-- [下载 CCConnect-Launcher.vbs](https://github.com/yanlin-cheng/cc-connect-optimized/releases/download/v1.0.0/CCConnect-Launcher.vbs)
-- [下载 CCConnect-Launcher.ps1](https://github.com/yanlin-cheng/cc-connect-optimized/releases/download/v1.0.0/CCConnect-Launcher.ps1)
+### Windows 安全提示
 
-**建议**：创建一个专门的文件夹，比如 `D:\MyTools\cc-connect\`，把两个文件都放进去。
+运行脚本时，Windows 可能会显示安全警告。这是下载脚本的正常现象。解决方法：
 
-### 第 2 步：运行
+1. 右键点击 `CCConnect-Launcher.ps1` -> **属性**
+2. 在底部勾选 **"解除锁定"** -> 点击 **确定**
+3. 重新运行脚本
 
-双击 `CCConnect-Launcher.vbs`，程序会自动：
-- 检测是否安装了 CC Connect（本地或全局）
-- 如果未安装，询问是否安装到当前文件夹
-- 安装完成后创建桌面快捷方式
-
-### 第 3 步：使用桌面快捷方式
-
-以后直接双击桌面的「CCConnect 启动器」就行。
-
----
-
-## 💡 推荐：用飞书
-
-我试了几个平台，飞书最方便：
-
-- 在 Web UI 里扫码就能接入，不用填配置
-- 手机电脑都能用
-- 配置最简单
-
-**设置步骤**：
-1. 用启动程序打开 Web UI（选 `[4]`）
-2. 创建项目 → 添加飞书平台 → 点击「扫码创建」
-3. 用飞书 App 扫描二维码（不是微信，是飞书 App）
-4. 在飞书里找到机器人，开始对话
-
----
-
-## 🔧 电源设置
-
-想让电脑晚上也能用，需要设置一下：
-
-1. 搜索「电源计划」→ 编辑电源计划
-2. 关闭显示器：5 分钟
-3. 进入睡眠：从不
-
-或者用命令行（管理员 PowerShell）：
+或者在 PowerShell 中运行：
 ```powershell
-powercfg /change standby-timeout-ac 0
-powercfg /change monitor-timeout-ac 5
+Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
 ```
 
----
+## 有什么不同？
 
-## 📁 文件说明
+这个优化版本增加了：
 
-```
-cc-connect-优化版/
-├── CCConnect-Launcher.vbs          # 启动器（双击运行）
-├── CCConnect-Launcher.ps1          # 控制面板脚本
-├── README.md                       # 英文说明
-├── README.zh-CN.md                 # 中文说明（本文件）
-└── docs/
-    ├── feishu-setup.md             # 飞书配置指南
-    └── wecom-setup.md              # 企业微信配置指南
-```
+- **可视化控制面板**：菜单式界面，简单易用
+- **一键安装**：如果没有安装 CC Connect，会自动帮你安装
+- **桌面快捷方式**：创建快捷方式，方便快速启动
+- **智能检测**：自动查找本地或全局安装的 CC Connect
+- **自动打开网页**：启动服务时自动打开网页界面
 
----
+## 使用说明
 
-## 📚 更多文档
+控制面板有以下选项：
 
-- [飞书配置指南](docs/feishu-setup.md)
-- [企业微信配置指南](docs/wecom-setup.md)
-- [原项目](https://github.com/chenhg5/cc-connect)
+| 选项 | 说明 |
+|------|------|
+| 1 | 启动 CC Connect |
+| 2 | 停止 CC Connect |
+| 3 | 打开网页界面 |
+| 4 | 启动并打开网页界面 |
+| 5 | 创建桌面快捷方式 |
+| 6 | 退出 |
 
----
+## 配置
 
-## 🙏 致谢
+启动 CC Connect 后，打开网页界面 http://localhost:9820 来配置聊天平台。
 
-- 感谢 [CC Connect](https://github.com/chenhg5/cc-connect) 提供的优秀工具
-- 本项目使用 [Claude Code](https://claude.ai/code) 辅助开发
+### 飞书（推荐）
 
----
+最容易配置的平台，只需用飞书 App 扫码即可。
 
-## 📧 联系方式
+**[飞书配置指南](docs/feishu-setup.md)**
 
-- GitHub: [cc-connect-optimized](https://github.com/yanlin-cheng/cc-connect-optimized)
-- 邮箱: yanlin.cheng@foxmail.com
+### 企业微信
 
----
+适合企业用户使用。
 
-## 📄 许可证
+**[企业微信配置指南](docs/wecom-setup.md)**
 
-MIT License
+## 要求
+
+- **Windows 10/11**
+- **Node.js**：https://nodejs.org/
+- **PowerShell**：Windows 自带
+- **Claude Code CLI**：必须安装并在 PATH 中
+
+## 重要：保持电脑运行
+
+CC Connect 作为服务在你的电脑上运行。如果关机：
+
+- 服务会停止
+- 聊天机器人会下线
+- 消息不会得到回复
+
+**保持运行的方法：**
+
+1. 打开 **设置** -> **系统** -> **电源和睡眠**
+2. 设置 **屏幕** 几分钟后关闭（节省电力）
+3. 设置 **睡眠** 为 **从不**（保持服务运行）
+4. 或使用命令：`powercfg -change -standby-timeout-ac 0`
+
+## 致谢
+
+- [CC Connect](https://github.com/wildancv/cc-connect) 由 wildancv 开发
+- 由 yanlin-cheng 在 Claude Code 协助下优化
+
+## 许可证
+
+MIT 许可证

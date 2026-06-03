@@ -1,123 +1,111 @@
 # CC Connect Optimized
 
-> I've been using CC Connect and it's great, but typing commands every day was inconvenient. So I made a launcher that you can just double-click.
+This is an optimized version of [CC Connect](https://github.com/wildancv/cc-connect) with a visual control panel that makes it easy for anyone to use.
 
-<p align="center">
-  <a href="https://github.com/chenhg5/cc-connect/blob/main/LICENSE">
-    <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License"/>
-  </a>
-</p>
+## Quick Start
 
-<p align="center">
-  <a href="./README.md">English</a> | <a href="./README.zh-CN.md">中文</a>
-</p>
+### Download
 
----
+Download the launcher script:
 
-## 🎯 What Is This
+**[Download CCConnect-Launcher.ps1](https://github.com/yanlin-cheng/cc-connect-optimized/releases/latest/download/CCConnect-Launcher.ps1)**
 
-CC Connect is a tool that connects AI on your computer to chat apps on your phone. I've been using it and it's good, but starting it with commands every day was annoying. So I made a launcher:
+### Install
 
-- Double-click to start service
-- Auto-open browser
-- Auto-detect and install dependencies
-- Bilingual support (English + Chinese)
+1. Create a folder where you want to install CC Connect
+2. Move the downloaded `CCConnect-Launcher.ps1` into that folder
+3. Right-click the file -> Select **"Run with PowerShell"**
 
----
+That's it! The control panel will guide you through the rest.
 
-## 🚀 How to Use
+### First Time Setup
 
-### Step 1: Download
+When you run the script for the first time:
 
-Click the links below to download directly (download both files):
+1. If CC Connect is not installed, it will ask if you want to install it (type `Y` and press Enter)
+2. After installation, press `5` to create a desktop shortcut for easy access
+3. Press `4` to start the service and open the Web UI
+4. In the Web UI, configure your chat platform (Feishu is recommended - just scan a QR code!)
 
-- [Download CCConnect-Launcher.vbs](https://github.com/yanlin-cheng/cc-connect-optimized/releases/download/v1.0.0/CCConnect-Launcher.vbs)
-- [Download CCConnect-Launcher.ps1](https://github.com/yanlin-cheng/cc-connect-optimized/releases/download/v1.0.0/CCConnect-Launcher.ps1)
+### Windows Security Notice
 
-**Tip**: Create a dedicated folder, like `D:\MyTools\cc-connect\`, and put both files there.
+When you run the script, Windows may show a security warning. This is normal for downloaded scripts. To fix this:
 
-### Step 2: Run
+1. Right-click `CCConnect-Launcher.ps1` -> **Properties**
+2. At the bottom, check **"Unblock"** -> Click **OK**
+3. Run the script again
 
-Double-click `CCConnect-Launcher.vbs`, and the program will automatically:
-- Check if CC Connect is installed (local or global)
-- If not installed, ask if you want to install to current folder
-- Create a desktop shortcut after installation
-
-### Step 3: Use Desktop Shortcut
-
-Just double-click the "CCConnect 启动器" shortcut on your desktop from now on.
-
----
-
-## 💡 Recommendation: Use Feishu
-
-I tried several platforms, and Feishu is the easiest:
-
-- Scan QR code in Web UI to connect, no manual config needed
-- Works on phone and computer
-- Simplest configuration
-
-**Setup steps**:
-1. Open Web UI with the launcher (select `[4]`)
-2. Create project → Add Feishu platform → Click "Scan QR Code"
-3. Use Feishu App to scan the QR code (not WeChat, use Feishu App)
-4. Find the bot in Feishu and start chatting
-
----
-
-## 🔧 Power Settings
-
-To keep your computer running overnight:
-
-1. Search "Power Plan" → Edit power plan
-2. Turn off display: 5 minutes
-3. Put computer to sleep: Never
-
-Or use command line (Admin PowerShell):
+Or run this command in PowerShell:
 ```powershell
-powercfg /change standby-timeout-ac 0
-powercfg /change monitor-timeout-ac 5
+Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
 ```
 
----
+## What's Different?
 
-## 📁 File Structure
+This optimized version adds:
 
-```
-cc-connect-optimized/
-├── CCConnect-Launcher.vbs          # Launcher (double-click to run)
-├── CCConnect-Launcher.ps1          # Control panel script
-├── README.md                       # This file
-├── README.zh-CN.md                 # Chinese version
-└── docs/
-    ├── feishu-setup.md             # Feishu setup guide
-    └── wecom-setup.md              # WeChat Work setup guide
-```
+- **Visual Control Panel**: A menu-based interface that's easy to use
+- **One-Click Install**: Automatically installs CC Connect if not found
+- **Desktop Shortcut**: Create a shortcut for quick access
+- **Smart Detection**: Finds CC Connect whether installed locally or globally
+- **Auto-Start Browser**: Opens the Web UI when you start the service
 
----
+## Usage
 
-## 📚 More Documentation
+The control panel has these options:
 
-- [Feishu Setup Guide](docs/feishu-setup.md)
-- [WeChat Work Setup Guide](docs/wecom-setup.md)
-- [Original Project](https://github.com/chenhg5/cc-connect)
+| Option | Description |
+|--------|-------------|
+| 1 | Start CC Connect |
+| 2 | Stop CC Connect |
+| 3 | Open Web UI in browser |
+| 4 | Start and open Web UI |
+| 5 | Create desktop shortcut |
+| 6 | Exit |
 
----
+## Configuration
 
-## 🙏 Credits
+After starting CC Connect, open the Web UI at http://localhost:9820 to configure your chat platform.
 
-- Thanks to [CC Connect](https://github.com/chenhg5/cc-connect) for the excellent tool
-- This project was developed with [Claude Code](https://claude.ai/code)
+### Feishu (Recommended)
 
----
+The easiest platform to set up. Just scan a QR code with your Feishu app.
 
-## 📧 Contact
+**[Feishu Setup Guide](docs/feishu-setup.md)**
 
-- GitHub: [cc-connect-optimized](https://github.com/yanlin-cheng/cc-connect-optimized)
-- Email: yanlin.cheng@foxmail.com
+### WeChat Work
 
----
+For enterprise use with WeChat Work.
 
-## 📄 License
+**[WeChat Work Setup Guide](docs/wecom-setup.md)**
+
+## Requirements
+
+- **Windows 10/11**
+- **Node.js**: https://nodejs.org/
+- **PowerShell**: Built into Windows
+- **Claude Code CLI**: Must be installed and in your PATH
+
+## Important: Keep Your PC Running
+
+CC Connect runs as a service on your computer. If you turn off your PC:
+
+- The service stops
+- Your chat bot goes offline
+- Messages won't get responses
+
+**To keep it running overnight:**
+
+1. Open **Settings** -> **System** -> **Power & sleep**
+2. Set **Screen** to turn off after a few minutes (saves power)
+3. Set **Sleep** to **Never** (keeps the service running)
+4. Or use: `powercfg -change -standby-timeout-ac 0`
+
+## Credits
+
+- [CC Connect](https://github.com/wildancv/cc-connect) by wildancv
+- Optimized by yanlin-cheng with assistance from Claude Code
+
+## License
 
 MIT License
