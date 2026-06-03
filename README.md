@@ -43,11 +43,12 @@
 
 ### Step 1: Download Control Panel
 
-Download the control panel files:
-- [Start-CC-Connect.vbs](Start-CC-Connect.vbs) (English version)
-- [启动CC-Connect控制面板.vbs](启动CC-Connect控制面板.vbs) (中文版)
+Download the control panel file:
+- [CC-Connect-启动器.vbs](CC-Connect-启动器.vbs) (Bilingual / 中英文双语)
 
 **💡 Tip:** Create a folder (e.g., `D:\MyTools\cc-connect\`) and put the VBS file there. CC Connect will be installed to that folder automatically.
+
+**💡 提示：** 创建一个文件夹（如 `D:\MyTools\cc-connect\`），把 VBS 文件放进去。CC Connect 会自动安装到该文件夹。
 
 ### Step 2: Run Control Panel
 
@@ -149,10 +150,8 @@ This will:
 
 ```
 cc-connect-optimized/
-├── cc-connect-control.ps1          # Control panel script
-├── Start-CC-Connect.vbs            # English launcher
-├── 启动CC-Connect控制面板.vbs       # Chinese launcher
-├── 启动控制面板-中文.bat            # Batch launcher
+├── cc-connect-control.ps1          # Control panel script (bilingual)
+├── CC-Connect-启动器.vbs           # Launcher (bilingual)
 ├── README.md                       # This file
 ├── README.zh-CN.md                 # Chinese version
 ├── config.example.toml             # Example config

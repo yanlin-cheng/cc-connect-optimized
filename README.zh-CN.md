@@ -44,10 +44,11 @@
 ### 第 1 步：下载控制面板
 
 下载控制面板文件：
-- [启动CC-Connect控制面板.vbs](启动CC-Connect控制面板.vbs)（中文版）
-- [Start-CC-Connect.vbs](Start-CC-Connect.vbs)（English version）
+- [CC-Connect-启动器.vbs](CC-Connect-启动器.vbs)（中英文双语 / Bilingual）
 
 **💡 提示：** 创建一个文件夹（如 `D:\MyTools\cc-connect\`），把 VBS 文件放进去。CC Connect 会自动安装到该文件夹。
+
+**💡 Tip:** Create a folder (e.g., `D:\MyTools\cc-connect\`) and put the VBS file there. CC Connect will be installed to that folder automatically.
 
 ### 第 2 步：运行控制面板
 
@@ -149,10 +150,8 @@
 
 ```
 cc-connect-优化版/
-├── cc-connect-control.ps1          # 控制面板主脚本
-├── Start-CC-Connect.vbs            # 英文启动器
-├── 启动CC-Connect控制面板.vbs       # 中文启动器
-├── 启动控制面板-中文.bat            # 批处理启动器
+├── cc-connect-control.ps1          # 控制面板主脚本（中英文双语）
+├── CC-Connect-启动器.vbs           # 启动器（中英文双语）
 ├── README.md                       # 英文说明文档
 ├── README.zh-CN.md                 # 中文说明文档（本文件）
 ├── config.example.toml             # 示例配置文件
