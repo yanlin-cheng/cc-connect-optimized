@@ -16,7 +16,18 @@ function Get-CCConnectStatus {
         }
     }
 
-    # Check global installation
+    # Check global installation (npm global directory)
+    $npmGlobalDir = "$env:APPDATA\npm"
+    $npmGlobalPath = Join-Path $npmGlobalDir "cc-connect.cmd"
+    if (Test-Path $npmGlobalPath) {
+        return @{
+            Installed = $true
+            Type = "global"
+            Path = $npmGlobalPath
+        }
+    }
+
+    # Check global installation (PATH)
     $globalPath = Get-Command cc-connect -ErrorAction SilentlyContinue
     if ($globalPath) {
         return @{
@@ -71,7 +82,7 @@ function Install-CCConnect {
 }
 
 # Create desktop shortcut
-function Create-DesktopShortcut {
+function New-DesktopShortcut {
     $desktopPath = [Environment]::GetFolderPath("Desktop")
     $shortcutPath = Join-Path $desktopPath "CCConnect Launcher.vbs"
 
@@ -100,6 +111,13 @@ function Start-Service {
         Write-Host "  [ERROR] CC Connect not installed" -ForegroundColor Red
         Read-Host "  Press Enter to continue"
         return
+    }
+
+    # Add npm global directory to PATH
+    $npmGlobalDir = "$env:APPDATA\npm"
+    if ($env:PATH -notlike "*$npmGlobalDir*") {
+        $env:PATH = "$npmGlobalDir;$env:PATH"
+        Write-Host "  [INFO] Added npm global directory to PATH" -ForegroundColor Cyan
     }
 
     Start-Process -FilePath $status.Path -WindowStyle Hidden
@@ -140,6 +158,13 @@ function Start-AndOpen {
         Write-Host "  [ERROR] CC Connect not installed" -ForegroundColor Red
         Read-Host "  Press Enter to continue"
         return
+    }
+
+    # Add npm global directory to PATH
+    $npmGlobalDir = "$env:APPDATA\npm"
+    if ($env:PATH -notlike "*$npmGlobalDir*") {
+        $env:PATH = "$npmGlobalDir;$env:PATH"
+        Write-Host "  [INFO] Added npm global directory to PATH" -ForegroundColor Cyan
     }
 
     Start-Process -FilePath $status.Path -WindowStyle Hidden
@@ -183,7 +208,7 @@ function Main {
                 $installPath = $ScriptDir
                 $success = Install-CCConnect -InstallPath $installPath
                 if ($success) {
-                    Create-DesktopShortcut
+                    New-DesktopShortcut
                 }
             }
             "2" {
