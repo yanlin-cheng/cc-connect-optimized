@@ -39,6 +39,11 @@ Download this one file:
 3. Select "Save link as" or "链接另存为"
 4. Save to your preferred folder
 
+**About the security warning**:
+Windows may show a warning saying "This type of file can harm your device". This is normal for files downloaded from the internet. You can:
+1. Click "Keep" or "Keep anyway"
+2. Or click "More info" → "Run anyway"
+
 **Tip**: Create a dedicated folder, like `D:\MyTools\cc-connect\`, and put the file there.
 
 ### Step 2: Run
