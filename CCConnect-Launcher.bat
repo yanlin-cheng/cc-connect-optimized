@@ -5,8 +5,8 @@ echo   CC Connect 启动器
 echo   CC Connect Launcher
 echo ==========================================
 echo.
-echo   正在启动...
-echo   Starting...
+echo   正在检测环境...
+echo   Checking environment...
 echo.
 
 :: 检查是否安装了 Node.js
@@ -35,28 +35,43 @@ if %errorlevel% neq 0 (
     exit /b 1
 )
 
-:: 检查是否安装了 CC Connect
+:: 检查本地安装
+set "ccConnectPath="
 if exist "%~dp0node_modules\.bin\cc-connect.cmd" (
-    echo   [状态] CC Connect 已安装
-    echo   [Status] CC Connect installed
-) else (
-    echo   [安装] CC Connect 未安装，正在安装...
-    echo   [Install] CC Connect not installed, installing...
-    echo.
-    cd /d "%~dp0"
-    npm install cc-connect
-    if %errorlevel% neq 0 (
-        echo.
-        echo   [错误] 安装失败
-        echo   [Error] Installation failed
-        pause
-        exit /b 1
-    )
-    echo.
-    echo   [完成] CC Connect 安装成功！
-    echo   [Done] CC Connect installed successfully!
+    set "ccConnectPath=%~dp0node_modules\.bin\cc-connect.cmd"
+    echo   [状态] CC Connect 已安装（本地）
+    echo   [Status] CC Connect installed (local)
+    goto :found
 )
 
+:: 检查全局安装
+where cc-connect >nul 2>nul
+if %errorlevel% equ 0 (
+    set "ccConnectPath=cc-connect"
+    echo   [状态] CC Connect 已安装（全局）
+    echo   [Status] CC Connect installed (global)
+    goto :found
+)
+
+:: 未找到 CC Connect，进行本地安装
+echo   [安装] CC Connect 未安装，正在安装...
+echo   [Install] CC Connect not installed, installing...
+echo.
+cd /d "%~dp0"
+npm install cc-connect
+if %errorlevel% neq 0 (
+    echo.
+    echo   [错误] 安装失败
+    echo   [Error] Installation failed
+    pause
+    exit /b 1
+)
+set "ccConnectPath=%~dp0node_modules\.bin\cc-connect.cmd"
+echo.
+echo   [完成] CC Connect 安装成功！
+echo   [Done] CC Connect installed successfully!
+
+:found
 :: 创建桌面快捷方式
 echo.
 echo   [快捷方式] 正在创建桌面快捷方式...

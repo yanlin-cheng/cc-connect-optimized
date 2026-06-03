@@ -7,8 +7,35 @@ $Host.UI.RawUI.WindowTitle = "CC Connect 启动器 / CC Connect Launcher"
 $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 
 function Test-CCConnectInstalled {
+    # 检查本地安装
     $localPath = Join-Path $ScriptDir "node_modules\.bin\cc-connect.cmd"
-    return (Test-Path $localPath)
+    if (Test-Path $localPath) {
+        return $true
+    }
+
+    # 检查全局安装
+    $globalPath = Get-Command cc-connect -ErrorAction SilentlyContinue
+    if ($globalPath) {
+        return $true
+    }
+
+    return $false
+}
+
+function Get-CCConnectPath {
+    # 检查本地安装
+    $localPath = Join-Path $ScriptDir "node_modules\.bin\cc-connect.cmd"
+    if (Test-Path $localPath) {
+        return $localPath
+    }
+
+    # 检查全局安装
+    $globalPath = Get-Command cc-connect -ErrorAction SilentlyContinue
+    if ($globalPath) {
+        return $globalPath.Source
+    }
+
+    return $null
 }
 
 function Start-Service {
@@ -23,7 +50,7 @@ function Start-Service {
         return
     }
 
-    $ccConnectPath = Join-Path $ScriptDir "node_modules\.bin\cc-connect.cmd"
+    $ccConnectPath = Get-CCConnectPath
     Start-Process -FilePath $ccConnectPath -WindowStyle Hidden
     Write-Host "  [完成] 服务已启动！" -ForegroundColor Green
     Write-Host "  [Done] Service started!" -ForegroundColor Green
@@ -67,7 +94,7 @@ function Start-AndOpen {
         return
     }
 
-    $ccConnectPath = Join-Path $ScriptDir "node_modules\.bin\cc-connect.cmd"
+    $ccConnectPath = Get-CCConnectPath
     Start-Process -FilePath $ccConnectPath -WindowStyle Hidden
     Write-Host "  [等待] 等待服务启动..." -ForegroundColor Yellow
     Write-Host "  [Wait] Waiting for service..." -ForegroundColor Yellow
