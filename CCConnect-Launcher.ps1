@@ -159,11 +159,39 @@ function Start-Service {
 
     Start-Process -FilePath $ccCmd -WindowStyle Normal
     Write-Host ""
-    Write-Host "  [OK] CC Connect started! / 启动成功!" -ForegroundColor Green
-    Write-Host "  Web UI: http://localhost:9820" -ForegroundColor Cyan
-    Write-Host "  Opening browser in 3 seconds / 3秒后打开浏览器..." -ForegroundColor Gray
-    Start-Sleep -Seconds 3
-    Start-Process "http://localhost:9820"
+    Write-Host "  Waiting for service to start / 等待服务启动..." -ForegroundColor Cyan
+
+    # Wait for port 9820 to be ready (max 15 seconds)
+    $ready = $false
+    for ($i = 1; $i -le 15; $i++) {
+        Start-Sleep -Seconds 1
+        $portCheck = Test-NetConnection -ComputerName localhost -Port 9820 -WarningAction SilentlyContinue -ErrorAction SilentlyContinue
+        if ($portCheck.TcpTestSucceeded) {
+            $ready = $true
+            break
+        }
+        Write-Host "  Waiting... $i/15s" -ForegroundColor Gray
+    }
+
+    if ($ready) {
+        Write-Host ""
+        Write-Host "  [OK] CC Connect started! / 启动成功!" -ForegroundColor Green
+        Write-Host "  Web UI: http://localhost:9820" -ForegroundColor Cyan
+        Start-Process "http://localhost:9820"
+    } else {
+        Write-Host ""
+        Write-Host "  [WARNING] Service may not be running / 服务可能未启动" -ForegroundColor Yellow
+        Write-Host "  Please check the cc-connect window for errors" -ForegroundColor Yellow
+        Write-Host "  请检查 cc-connect 窗口中的错误信息" -ForegroundColor Yellow
+        Write-Host ""
+        Write-Host "  Try running manually / 尝试手动运行:" -ForegroundColor Cyan
+        Write-Host "  cc-connect" -ForegroundColor White
+        Write-Host ""
+        $openAnyway = Read-Host "  Open browser anyway? / 仍然打开浏览器? (Y/N)"
+        if ($openAnyway -eq "Y" -or $openAnyway -eq "y") {
+            Start-Process "http://localhost:9820"
+        }
+    }
 }
 
 function Stop-Service {
