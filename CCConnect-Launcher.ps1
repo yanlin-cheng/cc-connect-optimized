@@ -10,6 +10,21 @@ Set-Location $scriptDir
 
 $npmGlobalDir = "$env:APPDATA\npm"
 
+function Get-AgentStatus {
+    $agents = @(
+        @{ Name = "claude"; Desc = "Claude Code" },
+        @{ Name = "codex"; Desc = "OpenAI Codex" },
+        @{ Name = "cursor"; Desc = "Cursor" },
+        @{ Name = "gemini"; Desc = "Gemini CLI" }
+    )
+    $found = @()
+    foreach ($agent in $agents) {
+        $cmd = Get-Command $agent.Name -ErrorAction SilentlyContinue
+        if ($cmd) { $found += $agent.Desc }
+    }
+    return $found
+}
+
 function Get-CCConnectStatus {
     # Check global install first (recommended)
     $globalCmd = Join-Path $npmGlobalDir "cc-connect.cmd"
@@ -123,6 +138,30 @@ function Start-Service {
         }
     }
 
+    # Check for AI agent CLI
+    $agents = Get-AgentStatus
+    if ($agents.Count -eq 0) {
+        Write-Host ""
+        Write-Host "  [ERROR] No AI Agent CLI found / 未检测到 AI 代理" -ForegroundColor Red
+        Write-Host ""
+        Write-Host "  CC Connect requires at least one AI agent to run." -ForegroundColor Yellow
+        Write-Host "  CC Connect 需要至少一个 AI 代理才能运行。" -ForegroundColor Yellow
+        Write-Host ""
+        Write-Host "  Please install one of the following:" -ForegroundColor White
+        Write-Host "  请安装以下任意一个:" -ForegroundColor White
+        Write-Host ""
+        Write-Host "  - Claude Code  : https://docs.anthropic.com/en/docs/claude-code" -ForegroundColor Cyan
+        Write-Host "  - OpenAI Codex : https://github.com/openai/codex" -ForegroundColor Cyan
+        Write-Host "  - Cursor       : https://cursor.sh" -ForegroundColor Cyan
+        Write-Host "  - Gemini CLI   : https://github.com/google-gemini/gemini-cli" -ForegroundColor Cyan
+        Write-Host ""
+        Read-Host "  Press Enter / 按回车返回"
+        return
+    } else {
+        Write-Host ""
+        Write-Host "  AI Agent found / 检测到代理: $($agents -join ', ')" -ForegroundColor Green
+    }
+
     Write-Host ""
     Write-Host "  Starting CC Connect..." -ForegroundColor Cyan
 
@@ -159,39 +198,11 @@ function Start-Service {
 
     Start-Process -FilePath $ccCmd -WindowStyle Normal
     Write-Host ""
-    Write-Host "  Waiting for service to start / 等待服务启动..." -ForegroundColor Cyan
-
-    # Wait for port 9820 to be ready (max 15 seconds)
-    $ready = $false
-    for ($i = 1; $i -le 15; $i++) {
-        Start-Sleep -Seconds 1
-        $portCheck = Test-NetConnection -ComputerName localhost -Port 9820 -WarningAction SilentlyContinue -ErrorAction SilentlyContinue
-        if ($portCheck.TcpTestSucceeded) {
-            $ready = $true
-            break
-        }
-        Write-Host "  Waiting... $i/15s" -ForegroundColor Gray
-    }
-
-    if ($ready) {
-        Write-Host ""
-        Write-Host "  [OK] CC Connect started! / 启动成功!" -ForegroundColor Green
-        Write-Host "  Web UI: http://localhost:9820" -ForegroundColor Cyan
-        Start-Process "http://localhost:9820"
-    } else {
-        Write-Host ""
-        Write-Host "  [WARNING] Service may not be running / 服务可能未启动" -ForegroundColor Yellow
-        Write-Host "  Please check the cc-connect window for errors" -ForegroundColor Yellow
-        Write-Host "  请检查 cc-connect 窗口中的错误信息" -ForegroundColor Yellow
-        Write-Host ""
-        Write-Host "  Try running manually / 尝试手动运行:" -ForegroundColor Cyan
-        Write-Host "  cc-connect" -ForegroundColor White
-        Write-Host ""
-        $openAnyway = Read-Host "  Open browser anyway? / 仍然打开浏览器? (Y/N)"
-        if ($openAnyway -eq "Y" -or $openAnyway -eq "y") {
-            Start-Process "http://localhost:9820"
-        }
-    }
+    Write-Host "  [OK] CC Connect started! / 启动成功!" -ForegroundColor Green
+    Write-Host "  Web UI: http://localhost:9820" -ForegroundColor Cyan
+    Write-Host "  Opening browser in 3 seconds / 3秒后打开浏览器..." -ForegroundColor Gray
+    Start-Sleep -Seconds 3
+    Start-Process "http://localhost:9820"
 }
 
 function Stop-Service {
