@@ -86,34 +86,14 @@ function New-DesktopShortcut {
 }
 
 function Start-Service {
-    # Check AI agent
+    # Check AI agent (warning only, don't block)
     $agents = Get-AgentStatus
     if ($agents.Count -eq 0) {
         Write-Host ""
-        Write-Host "  [ERROR] No AI Agent CLI found / 未检测到 AI 代理" -ForegroundColor Red
-        Write-Host ""
-        Write-Host "  CC Connect requires at least one AI agent to run." -ForegroundColor Yellow
-        Write-Host "  CC Connect 需要至少一个 AI 代理才能运行。" -ForegroundColor Yellow
-        Write-Host ""
-        Write-Host "  Please install one or more of the following:" -ForegroundColor White
-        Write-Host "  请安装以下任意一个或其他兼容的 AI 代理:" -ForegroundColor White
-        Write-Host ""
-        Write-Host "  --- Officially Supported / 官方支持 ---" -ForegroundColor Green
-        Write-Host "  - Claude Code  : https://docs.anthropic.com/en/docs/claude-code" -ForegroundColor Cyan
-        Write-Host "  - OpenAI Codex : https://github.com/openai/codex" -ForegroundColor Cyan
-        Write-Host "  - Cursor       : https://cursor.sh" -ForegroundColor Cyan
-        Write-Host "  - Gemini CLI   : https://github.com/google-gemini/gemini-cli" -ForegroundColor Cyan
-        Write-Host ""
-        Write-Host "  --- Other Agents / 其他代理 (may need config) ---" -ForegroundColor Yellow
-        Write-Host "  - Qwen Code (通义千问) : https://github.com/QwenLM/qwen-code" -ForegroundColor Cyan
-        Write-Host "  - Tencent CodeBuddy    : https://github.com/Tencent/CodeBuddy" -ForegroundColor Cyan
-        Write-Host "  - Xiaomi MiMo          : https://github.com/Xiaomi/mimo" -ForegroundColor Cyan
-        Write-Host ""
-        Write-Host "  Note: Other agents may require manual config in config.toml" -ForegroundColor Gray
-        Write-Host "  注意: 其他代理可能需要在 config.toml 中手动配置" -ForegroundColor Gray
-        Write-Host ""
-        Read-Host "  Press Enter / 按回车返回"
-        return
+        Write-Host "  [WARNING] No AI Agent CLI detected / 未检测到 AI 代理" -ForegroundColor Yellow
+        Write-Host "  If the service fails to start, please install an agent." -ForegroundColor Yellow
+        Write-Host "  如果启动失败，请安装一个 AI 代理。" -ForegroundColor Yellow
+        Write-Host "  Trying to start anyway / 尝试启动中..." -ForegroundColor Cyan
     } else {
         Write-Host ""
         Write-Host "  AI Agent found / 检测到代理: $($agents -join ', ')" -ForegroundColor Green
