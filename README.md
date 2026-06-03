@@ -1,6 +1,6 @@
 # CC Connect Optimized
 
-> I've been using CC Connect and it's great, but one thing bothered me: starting and stopping the service with commands every day was inconvenient. So I created this launcher to make it easier.
+> I've been using CC Connect and it's great, but typing commands every day was inconvenient. So I made a launcher that you can just double-click.
 
 <p align="center">
   <a href="https://github.com/chenhg5/cc-connect/blob/main/LICENSE">
@@ -14,51 +14,31 @@
 
 ---
 
-## 🎯 Why I Made This
+## 🎯 What Is This
 
-I've been using CC Connect and it's really good, but there's one thing that bothered me:
+CC Connect is a tool that connects AI on your computer to chat apps on your phone. I've been using it and it's good, but starting it with commands every day was annoying. So I made a launcher:
 
-- Every time I had to open the terminal and type commands to start the service
-- After starting, I had to manually open the browser to access the Web UI
-- For daily use, this workflow was too tedious
-
-So I thought, what if there was a program where I could double-click to start the service and open the browser? That would be so much easier!
-
----
-
-## ✨ What This Program Does
-
-I created a simple launcher that does exactly what you need:
-
-1. **One-click start/stop service** - No more typing commands
-2. **Auto-open browser when starting** - Saves you the extra step
-3. **Auto-detect and install CC Connect** - If not installed, it'll install it for you
-4. **Bilingual support** - Works for both Chinese and English users
+- Double-click to start service
+- Auto-open browser
+- Auto-detect and install dependencies
+- Bilingual support (English + Chinese)
 
 ---
 
 ## 🚀 How to Use
 
-### Step 1: Download the Program
+### Step 1: Download
 
-Click to download: [CC-Connect-启动器.vbs](CC-Connect-启动器.vbs)
+Download these two files and put them in the same folder:
 
-### Step 2: Put It in Your Preferred Folder
+- [CC-Connect-启动器.bat](https://raw.githubusercontent.com/yanlin-cheng/cc-connect-optimized/main/CC-Connect-启动器.bat)
+- [cc-connect-control.ps1](https://raw.githubusercontent.com/yanlin-cheng/cc-connect-optimized/main/cc-connect-control.ps1)
 
-**This is important!** I recommend you:
+**Tip**: Create a dedicated folder, like `D:\MyTools\cc-connect\`, and put the files there.
 
-1. Create a new folder, like `D:\MyTools\cc-connect\`
-2. Put the downloaded VBS file there
-3. CC Connect will be installed to that folder automatically
+### Step 2: Run
 
-**Why do this?**
-- Easy to manage, everything in one place
-- Won't mess up your system directories
-- Easy to delete later - just delete the folder
-
-### Step 3: Double-Click to Run
-
-Double-click `CC-Connect-启动器.vbs`, and you'll see a control panel:
+Double-click `CC-Connect-启动器.bat`, and you'll see the control panel:
 
 ```
 ==========================================
@@ -75,120 +55,44 @@ Double-click `CC-Connect-启动器.vbs`, and you'll see a control panel:
 ==========================================
 ```
 
-**The first time you run it**, the program will automatically check if CC Connect is installed. If not, it'll install it to the current folder for you.
+The first run will automatically install CC Connect to the current folder.
 
-### Step 4: Add Desktop Shortcut (Recommended)
+### Step 3: Add Desktop Shortcut
 
-**This step is key!** Once set up, daily use becomes super convenient:
+Right-click `CC-Connect-启动器.bat` → Create shortcut → Move to desktop
 
-1. Right-click `CC-Connect-启动器.vbs`
-2. Select "Create shortcut"
-3. Move the shortcut to your desktop
-4. Rename it to "CC Connect" or "AI Assistant"
-
-**Daily workflow:**
-- Morning: Double-click desktop shortcut → Select `[4]` → Service starts, browser opens
-- Evening: Select `[2]` → Service stops
+Then just double-click the desktop shortcut every day.
 
 ---
 
-## 💡 Recommended Workflow: Use Feishu
+## 💡 Recommendation: Use Feishu
 
-I've tried several platforms, and **Feishu is by far the most convenient**. Highly recommend it!
+I tried several platforms, and Feishu is the easiest:
 
-### Why Feishu?
+- Scan QR code to connect, no manual config needed
+- Supports WeChat QR code
+- Works on phone and computer
 
-- ✅ **Scan QR code to connect** - No complicated setup
-- ✅ **Supports WeChat QR code** - Don't need a Feishu account
-- ✅ **Easiest configuration** - Much simpler than other platforms
-- ✅ **Works on phone and computer** - Chat with AI anytime, anywhere
-
-### How to Set It Up?
-
-1. **Open Web UI** (use our launcher, select `[4]`)
-2. **Create a project** - Click "Projects" → "Add Project"
-3. **Add Feishu platform** - Click "Add Platform" → "Feishu" → "Scan QR Code"
-4. **Scan the QR code** - Use Feishu app to scan
-5. **Done!** - Find the bot in Feishu and start chatting
-
-**That's it!** Much easier than configuring WeChat Work, DingTalk, or other platforms.
+**Setup steps**:
+1. Open Web UI with the launcher (select `[4]`)
+2. Create project → Add Feishu platform → Scan QR code
+3. Find the bot in Feishu and start chatting
 
 ---
 
-## 🔧 Real-World Tips
+## 🔧 Power Settings
 
-### 1. Power Settings (Important!)
+To keep your computer running overnight:
 
-If you want to keep your computer running overnight so you can chat with AI from your phone, you need to adjust power settings:
+1. Search "Power Plan" → Edit power plan
+2. Turn off display: 5 minutes
+3. Put computer to sleep: Never
 
-**How to set it:**
-1. Press `Win + S`, search for "Power Plan"
-2. Click "Edit Power Plan"
-3. Set "Turn off the display" to 5 minutes (saves power)
-4. Set "Put the computer to sleep" to "Never" (keeps running)
-
-**Or use command line (run PowerShell as Administrator):**
+Or use command line (Admin PowerShell):
 ```powershell
-# Disable sleep
 powercfg /change standby-timeout-ac 0
-powercfg /change standby-timeout-dc 0
-
-# Set display to turn off after 5 minutes
 powercfg /change monitor-timeout-ac 5
-powercfg /change monitor-timeout-dc 5
 ```
-
-**Why do this?**
-- Screen turns off automatically, saves power
-- But computer won't sleep, CC Connect keeps running
-- You can chat with AI from your phone anytime
-
-### 2. Using the Web UI
-
-Use our launcher, select `[4] Start + Open Browser`, and the browser will automatically open the Web UI.
-
-In the Web UI you can:
-- Create and manage projects
-- Add chat platforms (Feishu, WeChat, etc.)
-- View conversation history
-- Configure various settings
-
-### 3. Setting Up Project Spaces
-
-**I recommend creating separate spaces for each project:**
-
-1. In Web UI, create Project A, bind Feishu Bot A
-2. Create Project B, bind Feishu Bot B
-3. In Feishu, different bots correspond to different projects
-
-**Benefits:**
-- Each project has its own conversation space
-- Won't get mixed up
-- Easy to manage
-
----
-
-## 📱 Daily Workflow
-
-**Here's how I use it every day:**
-
-1. **Morning at work:**
-   - Double-click desktop shortcut
-   - Select `[4] Start + Open Browser`
-   - Browser automatically opens Web UI
-
-2. **Set up project (if needed):**
-   - In Web UI, create or switch projects
-   - Add Feishu platform (just scan QR code)
-
-3. **Use:**
-   - Open Feishu on your phone
-   - Find your bot
-   - Start chatting!
-
-4. **After work:**
-   - Select `[2] Stop Service` in control panel
-   - Or just close the control panel window (service keeps running)
 
 ---
 
@@ -196,11 +100,10 @@ In the Web UI you can:
 
 ```
 cc-connect-optimized/
-├── cc-connect-control.ps1          # Control panel script (bilingual)
-├── CC-Connect-启动器.vbs           # Launcher (double-click to run)
+├── CC-Connect-启动器.bat           # Launcher (double-click to run)
+├── cc-connect-control.ps1          # Control panel script
 ├── README.md                       # This file
 ├── README.zh-CN.md                 # Chinese version
-├── config.example.toml             # Example config
 └── docs/
     ├── feishu-setup.md             # Feishu setup guide
     └── wecom-setup.md              # WeChat Work setup guide
@@ -210,9 +113,16 @@ cc-connect-optimized/
 
 ## 📚 More Documentation
 
-- [Feishu Setup Guide](docs/feishu-setup.md) - Detailed configuration steps
-- [WeChat Work Setup Guide](docs/wecom-setup.md) - If you prefer WeChat Work
-- [Original Project](https://github.com/chenhg5/cc-connect) - Full documentation
+- [Feishu Setup Guide](docs/feishu-setup.md)
+- [WeChat Work Setup Guide](docs/wecom-setup.md)
+- [Original Project](https://github.com/chenhg5/cc-connect)
+
+---
+
+## 🙏 Credits
+
+- Thanks to [CC Connect](https://github.com/chenhg5/cc-connect) for the excellent tool
+- This project was developed with [Claude Code](https://claude.ai/code)
 
 ---
 
@@ -225,4 +135,4 @@ cc-connect-optimized/
 
 ## 📄 License
 
-MIT License - Based on [CC Connect](https://github.com/chenhg5/cc-connect)
+MIT License
