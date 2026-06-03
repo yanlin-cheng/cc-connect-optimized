@@ -217,13 +217,6 @@ while ($true) {
         Write-Host "  Status: Installed / 已安装" -ForegroundColor Green
     }
 
-    $agents = Get-AgentStatus
-    if ($agents.Count -gt 0) {
-        Write-Host "  Agent: $($agents -join ', ')" -ForegroundColor Green
-    } else {
-        Write-Host "  Agent: Not found / 未检测到" -ForegroundColor Yellow
-    }
-
     Write-Host ""
     Write-Host "  [1] Start Service / 开始服务" -ForegroundColor White
     Write-Host "  [2] Stop Service / 停止服务" -ForegroundColor White
