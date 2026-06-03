@@ -26,46 +26,16 @@ function Get-AgentStatus {
 }
 
 function Get-CCConnectStatus {
-    # Check global install first (recommended)
     $globalCmd = Join-Path $npmGlobalDir "cc-connect.cmd"
-    if (Test-Path $globalCmd) { return "global" }
+    if (Test-Path $globalCmd) { return "installed" }
 
-    # Check local install
-    $localCmd = Join-Path $scriptDir "node_modules\.bin\cc-connect.cmd"
-    if (Test-Path $localCmd) { return "local" }
-
-    # Check PATH
     $inPath = Get-Command cc-connect -ErrorAction SilentlyContinue
-    if ($inPath) { return "path" }
+    if ($inPath) { return "installed" }
 
     return "not_found"
 }
 
-function Show-Status {
-    $status = Get-CCConnectStatus
-    switch ($status) {
-        "global"    { Write-Host "  Status: Installed (global) / 已安装 (全局)" -ForegroundColor Green }
-        "local"     { Write-Host "  Status: Installed (local) / 已安装 (本地)" -ForegroundColor Yellow }
-        "path"      { Write-Host "  Status: Installed (in PATH) / 已安装 (PATH 中)" -ForegroundColor Green }
-        "not_found" { Write-Host "  Status: NOT INSTALLED / 未安装" -ForegroundColor Yellow }
-    }
-    return $status
-}
-
 function Install-CCConnect {
-    Write-Host ""
-    Write-Host "  Select install method / 选择安装方式:" -ForegroundColor Cyan
-    Write-Host ""
-    Write-Host "  [1] Global install (Recommended) / 全局安装 (推荐)" -ForegroundColor Green
-    Write-Host "      Install to: $npmGlobalDir" -ForegroundColor Gray
-    Write-Host "      Works everywhere, stable and reliable" -ForegroundColor Gray
-    Write-Host ""
-    Write-Host "  [2] Local install / 本地安装" -ForegroundColor White
-    Write-Host "      Install to: $scriptDir\node_modules" -ForegroundColor Gray
-    Write-Host "      Only works in this folder" -ForegroundColor Gray
-    Write-Host ""
-    $method = Read-Host "  Choose (1-2, default 1)"
-
     $npm = Get-Command npm -ErrorAction SilentlyContinue
     if (-not $npm) {
         Write-Host ""
@@ -77,20 +47,10 @@ function Install-CCConnect {
     }
 
     Write-Host ""
-
-    if ($method -eq "2") {
-        # Local install
-        Write-Host "  Installing locally..." -ForegroundColor Cyan
-        Write-Host "  Directory: $scriptDir" -ForegroundColor Gray
-        Write-Host ""
-        & npm install cc-connect 2>&1 | ForEach-Object { Write-Host "  $_" -ForegroundColor Gray }
-    } else {
-        # Global install (default)
-        Write-Host "  Installing globally..." -ForegroundColor Cyan
-        Write-Host "  Directory: $npmGlobalDir" -ForegroundColor Gray
-        Write-Host ""
-        & npm install -g cc-connect 2>&1 | ForEach-Object { Write-Host "  $_" -ForegroundColor Gray }
-    }
+    Write-Host "  Installing CC Connect globally..." -ForegroundColor Cyan
+    Write-Host "  Directory: $npmGlobalDir" -ForegroundColor Gray
+    Write-Host ""
+    & npm install -g cc-connect 2>&1 | ForEach-Object { Write-Host "  $_" -ForegroundColor Gray }
 
     if ($LASTEXITCODE -eq 0) {
         Write-Host ""
@@ -126,19 +86,7 @@ function New-DesktopShortcut {
 }
 
 function Start-Service {
-    $status = Get-CCConnectStatus
-    if ($status -eq "not_found") {
-        Write-Host ""
-        Write-Host "  CC Connect not installed / 未安装" -ForegroundColor Yellow
-        $install = Read-Host "  Install now? / 现在安装? (Y/N)"
-        if ($install -eq "Y" -or $install -eq "y") {
-            if (-not (Install-CCConnect)) { return }
-        } else {
-            return
-        }
-    }
-
-    # Check for AI agent CLI
+    # Check AI agent
     $agents = Get-AgentStatus
     if ($agents.Count -eq 0) {
         Write-Host ""
@@ -179,19 +127,14 @@ function Start-Service {
         $env:PATH = "$npmGlobalDir;$env:PATH"
     }
 
-    # Find cc-connect.cmd - prefer global, then local
+    # Find cc-connect.cmd
     $globalCmd = Join-Path $npmGlobalDir "cc-connect.cmd"
-    $localCmd = Join-Path $scriptDir "node_modules\.bin\cc-connect.cmd"
-
     if (Test-Path $globalCmd) {
         $ccCmd = $globalCmd
-        Write-Host "  Using global: $globalCmd" -ForegroundColor Gray
-    } elseif (Test-Path $localCmd) {
-        $ccCmd = $localCmd
-        Write-Host "  Using local: $localCmd" -ForegroundColor Gray
+        Write-Host "  Using: $globalCmd" -ForegroundColor Gray
     } else {
         $ccCmd = "cc-connect.cmd"
-        Write-Host "  Using PATH: cc-connect.cmd" -ForegroundColor Gray
+        Write-Host "  Using: cc-connect.cmd (from PATH)" -ForegroundColor Gray
     }
 
     $configPath = Join-Path $scriptDir "config.toml"
@@ -233,12 +176,70 @@ function Open-Browser {
     Write-Host "  [OK] http://localhost:9820" -ForegroundColor Green
 }
 
-# Check if first run - offer to create shortcut
+# ============================================================
+# Startup: auto-detect and prompt install if needed
+# ============================================================
+Clear-Host
+Write-Host ""
+Write-Host "  =================================================" -ForegroundColor Cyan
+Write-Host "     CC Connect Control Panel" -ForegroundColor White
+Write-Host "     CC Connect 控制面板" -ForegroundColor Gray
+Write-Host "  =================================================" -ForegroundColor Cyan
+Write-Host ""
+
+$ccStatus = Get-CCConnectStatus
+
+if ($ccStatus -eq "not_found") {
+    Write-Host "  CC Connect is not installed / CC Connect 未安装" -ForegroundColor Yellow
+    Write-Host ""
+    $install = Read-Host "  Install now? / 现在安装? (Y/N)"
+    if ($install -eq "Y" -or $install -eq "y") {
+        if (-not (Install-CCConnect)) {
+            Write-Host ""
+            Write-Host "  Installation failed. Please install manually." -ForegroundColor Red
+            Write-Host "  安装失败，请手动安装。" -ForegroundColor Red
+            Write-Host ""
+            Read-Host "  Press Enter / 按回车退出"
+            exit
+        }
+    } else {
+        Write-Host ""
+        Write-Host "  CC Connect is required to use this tool." -ForegroundColor Yellow
+        Write-Host "  使用本工具需要安装 CC Connect。" -ForegroundColor Yellow
+        Write-Host ""
+        Read-Host "  Press Enter / 按回车退出"
+        exit
+    }
+} else {
+    Write-Host "  CC Connect is installed / CC Connect 已安装" -ForegroundColor Green
+}
+
+# Check for AI agent
+$agents = Get-AgentStatus
+if ($agents.Count -eq 0) {
+    Write-Host ""
+    Write-Host "  [WARNING] No AI Agent CLI found / 未检测到 AI 代理" -ForegroundColor Yellow
+    Write-Host "  CC Connect needs an agent to work. Please install one before starting the service." -ForegroundColor Yellow
+    Write-Host "  CC Connect 需要代理才能工作。请先安装一个代理再启动服务。" -ForegroundColor Yellow
+    Write-Host ""
+    Write-Host "  Supported agents / 支持的代理:" -ForegroundColor White
+    Write-Host "  - Claude Code, Codex, Cursor, Gemini CLI" -ForegroundColor Cyan
+    Write-Host "  - Qwen Code, Tencent CodeBuddy, Xiaomi MiMo" -ForegroundColor Cyan
+    Write-Host ""
+    Read-Host "  Press Enter to continue / 按回车继续"
+} else {
+    Write-Host "  AI Agent found / 检测到代理: $($agents -join ', ')" -ForegroundColor Green
+    Write-Host ""
+    Start-Sleep -Seconds 1
+}
+
+# ============================================================
+# Main menu loop
+# ============================================================
 $desktopPath = [Environment]::GetFolderPath("Desktop")
 $shortcutPath = Join-Path $desktopPath "CC Connect.lnk"
 $firstRun = -not (Test-Path $shortcutPath)
 
-# Main menu loop
 while ($true) {
     Clear-Host
     Write-Host ""
@@ -248,7 +249,19 @@ while ($true) {
     Write-Host "  =================================================" -ForegroundColor Cyan
     Write-Host ""
 
-    $status = Show-Status
+    $ccStatus = Get-CCConnectStatus
+    if ($ccStatus -eq "not_found") {
+        Write-Host "  Status: NOT INSTALLED / 未安装" -ForegroundColor Yellow
+    } else {
+        Write-Host "  Status: Installed / 已安装" -ForegroundColor Green
+    }
+
+    $agents = Get-AgentStatus
+    if ($agents.Count -gt 0) {
+        Write-Host "  Agent: $($agents -join ', ')" -ForegroundColor Green
+    } else {
+        Write-Host "  Agent: Not found / 未检测到" -ForegroundColor Yellow
+    }
 
     Write-Host ""
     Write-Host "  [1] Start Service / 开始服务" -ForegroundColor White
@@ -259,7 +272,6 @@ while ($true) {
     Write-Host "  [6] Exit / 退出" -ForegroundColor White
     Write-Host ""
 
-    # First run guidance
     if ($firstRun) {
         Write-Host "  [TIP] First time? Press 5 to create a desktop shortcut" -ForegroundColor Yellow
         Write-Host "  [提示] 首次使用？按 5 创建桌面快捷方式" -ForegroundColor Yellow
