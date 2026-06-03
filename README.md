@@ -29,15 +29,9 @@ CC Connect is a tool that connects AI on your computer to chat apps on your phon
 
 ### Step 1: Download
 
-Download this one file:
+Click the link below to download directly:
 
-- [CCConnect-启动器.ps1](https://raw.githubusercontent.com/yanlin-cheng/cc-connect-optimized/main/CCConnect-启动器.ps1)
-
-**How to download**:
-1. Click the link above
-2. On the opened page, right-click the "Raw" button
-3. Select "Save link as" or "链接另存为"
-4. Save to your preferred folder
+- [Download CCConnect-Launcher.ps1](https://github.com/yanlin-cheng/cc-connect-optimized/releases/download/v1.0.0/CCConnect-Launcher.ps1)
 
 **About the security warning**:
 Windows may show a warning saying "This type of file can harm your device". This is normal for files downloaded from the internet. You can:
