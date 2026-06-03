@@ -8,14 +8,18 @@ $OutputEncoding = [System.Text.Encoding]::UTF8
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 Set-Location $scriptDir
 
-function Get-CCConnectStatus {
-    $localCmd = Join-Path $scriptDir "node_modules\.bin\cc-connect.cmd"
-    if (Test-Path $localCmd) { return "local" }
+$npmGlobalDir = "$env:APPDATA\npm"
 
-    $npmGlobalDir = "$env:APPDATA\npm"
+function Get-CCConnectStatus {
+    # Check global install first (recommended)
     $globalCmd = Join-Path $npmGlobalDir "cc-connect.cmd"
     if (Test-Path $globalCmd) { return "global" }
 
+    # Check local install
+    $localCmd = Join-Path $scriptDir "node_modules\.bin\cc-connect.cmd"
+    if (Test-Path $localCmd) { return "local" }
+
+    # Check PATH
     $inPath = Get-Command cc-connect -ErrorAction SilentlyContinue
     if ($inPath) { return "path" }
 
@@ -25,8 +29,8 @@ function Get-CCConnectStatus {
 function Show-Status {
     $status = Get-CCConnectStatus
     switch ($status) {
-        "local"     { Write-Host "  Status: Installed (local) / 已安装 (本地)" -ForegroundColor Green }
         "global"    { Write-Host "  Status: Installed (global) / 已安装 (全局)" -ForegroundColor Green }
+        "local"     { Write-Host "  Status: Installed (local) / 已安装 (本地)" -ForegroundColor Yellow }
         "path"      { Write-Host "  Status: Installed (in PATH) / 已安装 (PATH 中)" -ForegroundColor Green }
         "not_found" { Write-Host "  Status: NOT INSTALLED / 未安装" -ForegroundColor Yellow }
     }
@@ -35,12 +39,21 @@ function Show-Status {
 
 function Install-CCConnect {
     Write-Host ""
-    Write-Host "  Installing CC Connect..." -ForegroundColor Cyan
-    Write-Host "  Directory: $scriptDir" -ForegroundColor Gray
+    Write-Host "  Select install method / 选择安装方式:" -ForegroundColor Cyan
     Write-Host ""
+    Write-Host "  [1] Global install (Recommended) / 全局安装 (推荐)" -ForegroundColor Green
+    Write-Host "      Install to: $npmGlobalDir" -ForegroundColor Gray
+    Write-Host "      Works everywhere, stable and reliable" -ForegroundColor Gray
+    Write-Host ""
+    Write-Host "  [2] Local install / 本地安装" -ForegroundColor White
+    Write-Host "      Install to: $scriptDir\node_modules" -ForegroundColor Gray
+    Write-Host "      Only works in this folder" -ForegroundColor Gray
+    Write-Host ""
+    $method = Read-Host "  Choose (1-2, default 1)"
 
     $npm = Get-Command npm -ErrorAction SilentlyContinue
     if (-not $npm) {
+        Write-Host ""
         Write-Host "  [ERROR] npm not found. Please install Node.js first." -ForegroundColor Red
         Write-Host "  https://nodejs.org/" -ForegroundColor Yellow
         Write-Host ""
@@ -48,7 +61,21 @@ function Install-CCConnect {
         return $false
     }
 
-    & npm install cc-connect 2>&1 | ForEach-Object { Write-Host "  $_" -ForegroundColor Gray }
+    Write-Host ""
+
+    if ($method -eq "2") {
+        # Local install
+        Write-Host "  Installing locally..." -ForegroundColor Cyan
+        Write-Host "  Directory: $scriptDir" -ForegroundColor Gray
+        Write-Host ""
+        & npm install cc-connect 2>&1 | ForEach-Object { Write-Host "  $_" -ForegroundColor Gray }
+    } else {
+        # Global install (default)
+        Write-Host "  Installing globally..." -ForegroundColor Cyan
+        Write-Host "  Directory: $npmGlobalDir" -ForegroundColor Gray
+        Write-Host ""
+        & npm install -g cc-connect 2>&1 | ForEach-Object { Write-Host "  $_" -ForegroundColor Gray }
+    }
 
     if ($LASTEXITCODE -eq 0) {
         Write-Host ""
@@ -100,21 +127,20 @@ function Start-Service {
     Write-Host "  Starting CC Connect..." -ForegroundColor Cyan
 
     # Add npm global dir to PATH
-    $npmGlobalDir = "$env:APPDATA\npm"
     if ($env:PATH -notlike "*$npmGlobalDir*") {
         $env:PATH = "$npmGlobalDir;$env:PATH"
     }
 
-    # Find cc-connect.cmd - use full path for local or global install
-    $localCmd = Join-Path $scriptDir "node_modules\.bin\cc-connect.cmd"
+    # Find cc-connect.cmd - prefer global, then local
     $globalCmd = Join-Path $npmGlobalDir "cc-connect.cmd"
+    $localCmd = Join-Path $scriptDir "node_modules\.bin\cc-connect.cmd"
 
-    if (Test-Path $localCmd) {
-        $ccCmd = $localCmd
-        Write-Host "  Using local: $localCmd" -ForegroundColor Gray
-    } elseif (Test-Path $globalCmd) {
+    if (Test-Path $globalCmd) {
         $ccCmd = $globalCmd
         Write-Host "  Using global: $globalCmd" -ForegroundColor Gray
+    } elseif (Test-Path $localCmd) {
+        $ccCmd = $localCmd
+        Write-Host "  Using local: $localCmd" -ForegroundColor Gray
     } else {
         $ccCmd = "cc-connect.cmd"
         Write-Host "  Using PATH: cc-connect.cmd" -ForegroundColor Gray
