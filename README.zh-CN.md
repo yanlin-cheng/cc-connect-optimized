@@ -33,6 +33,12 @@ CC Connect 是一个可以把电脑上的 AI 连接到手机聊天软件的工�
 
 - [CCConnect-启动器.ps1](https://raw.githubusercontent.com/yanlin-cheng/cc-connect-optimized/main/CCConnect-启动器.ps1)
 
+**下载方法**：
+1. 点击上面的链接
+2. 在打开的页面中，右键点击「Raw」按钮
+3. 选择「链接另存为」或「Save link as」
+4. 保存到你想安装的文件夹
+
 **建议**：创建一个专门的文件夹，比如 `D:\MyTools\cc-connect\`，把文件放进去。
 
 ### 第 2 步：运行

@@ -33,6 +33,12 @@ Download this one file:
 
 - [CCConnect-启动器.ps1](https://raw.githubusercontent.com/yanlin-cheng/cc-connect-optimized/main/CCConnect-启动器.ps1)
 
+**How to download**:
+1. Click the link above
+2. On the opened page, right-click the "Raw" button
+3. Select "Save link as" or "链接另存为"
+4. Save to your preferred folder
+
 **Tip**: Create a dedicated folder, like `D:\MyTools\cc-connect\`, and put the file there.
 
 ### Step 2: Run
