@@ -27,8 +27,7 @@
 
 **Problem with original version:**
 - Need to type commands manually to start/stop service
-- No graphical interface for management
-- Chinese and English users need separate versions
+- No quick way to open Web UI after starting service
 
 **Our solution:**
 - ✅ Visual control panel (PowerShell script)
@@ -36,6 +35,9 @@
 - ✅ One-click start/stop service
 - ✅ One-click open Web UI
 - ✅ Double-click to run, no commands needed
+- ✅ Auto-install CC Connect to script directory
+
+> **Note:** The original project supports multiple languages and has a built-in Web UI. Our optimization provides a convenient launcher that combines service startup and Web UI access in one click.
 
 ---
 
@@ -129,6 +131,47 @@ This will:
 2. **Configure:** Set up project in Web UI if needed
 3. **Use:** Chat with AI on mobile (Feishu/WeChat)
 4. **Evening:** Select `[2] Stop Service` in control panel
+
+---
+
+## 🔋 Power Management Settings
+
+**Keep your computer running while turning off the screen (for overnight tasks):**
+
+### Windows Settings
+
+1. **Open Power Options:**
+   - Press `Win + S`, search for "Power Plan" or "电源计划"
+   - Click "Edit Power Plan" or "编辑电源计划"
+
+2. **Set Display Timeout:**
+   - Set "Turn off the display" to a short time (e.g., 5 minutes)
+   - This will turn off the screen but keep the computer running
+
+3. **Disable Sleep:**
+   - Set "Put the computer to sleep" to "Never"
+   - This ensures CC Connect keeps running
+
+### Quick Setup (Command Line)
+
+Run this in PowerShell as Administrator:
+
+```powershell
+# Disable sleep / 禁用睡眠
+powercfg /change standby-timeout-ac 0
+powercfg /change standby-timeout-dc 0
+
+# Set display timeout to 5 minutes / 设置显示器关闭时间为5分钟
+powercfg /change monitor-timeout-ac 5
+powercfg /change monitor-timeout-dc 5
+```
+
+### Why This Matters
+
+- ✅ **CC Connect keeps running** - Service continues while you're away
+- ✅ **Save energy** - Screen turns off automatically
+- ✅ **Remote access** - You can still chat with AI from mobile
+- ✅ **No interruption** - Long-running tasks won't be stopped
 
 ---
 
