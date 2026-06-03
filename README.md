@@ -53,14 +53,15 @@ Just double-click the "CCConnect 启动器" shortcut on your desktop from now on
 
 I tried several platforms, and Feishu is the easiest:
 
-- Scan QR code to connect, no manual config needed
-- Supports WeChat QR code
+- Scan QR code in Web UI to connect, no manual config needed
 - Works on phone and computer
+- Simplest configuration
 
 **Setup steps**:
 1. Open Web UI with the launcher (select `[4]`)
-2. Create project → Add Feishu platform → Scan QR code
-3. Find the bot in Feishu and start chatting
+2. Create project → Add Feishu platform → Click "Scan QR Code"
+3. Use Feishu App to scan the QR code (not WeChat, use Feishu App)
+4. Find the bot in Feishu and start chatting
 
 ---
 
