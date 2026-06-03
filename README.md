@@ -19,25 +19,28 @@
 
 ## 🎯 Why I Made This
 
-I've been using CC Connect to chat with my AI assistant from my phone, and it's really good. But there's one thing that bothered me:
+I've been using CC Connect to chat with my AI assistant from my phone - it's amazing! But every morning I had to:
 
-- Every day I had to open the terminal and type commands to start the service
-- After starting, I had to manually open the browser to access the Web UI
-- For daily use, this workflow was too tedious
+1. Open the terminal
+2. Type `cc-connect` to start the service
+3. Open the browser manually
+4. Go to the Web UI
 
-So I thought: what if there was a program where I could double-click to start everything? That would be so much easier!
+Every single day. It got annoying.
+
+So I thought: what if I could just **double-click a file** and everything starts automatically? Service running, browser opens, ready to go. Add a shortcut to the desktop and it's one click away, forever.
+
+That's exactly what this program does. No more terminal, no more commands. Just click and chat.
 
 ---
 
 ## ✨ What This Does
 
-I made a simple control panel that:
-
-1. **One-click start** - Starts CC Connect and opens the Web UI automatically
-2. **Auto-install** - If CC Connect isn't installed, it installs it for you (globally via npm)
-3. **Agent detection** - Checks if you have an AI agent CLI installed before starting
-4. **Desktop shortcut** - Creates a shortcut so you can launch from your desktop
-5. **Bilingual** - Chinese and English side by side
+- **One click** → Service starts + browser opens automatically
+- **Auto install** → If CC Connect isn't installed, it handles it for you
+- **Smart detection** → Checks if you have an AI agent CLI before starting
+- **Desktop shortcut** → Create once, click forever
+- **Bilingual** → Chinese and English side by side
 
 ---
 
@@ -58,7 +61,7 @@ Before using this tool, you need:
 | Tencent CodeBuddy | https://github.com/Tencent/CodeBuddy |
 | Xiaomi MiMo | https://github.com/Xiaomi/mimo |
 
-> **Important**: CC Connect needs at least one AI agent CLI to run. Without it, the Web UI won't start. The script will detect this and show you a helpful error message.
+> **Important**: CC Connect needs at least one AI agent CLI to run. Without it, the Web UI won't start.
 
 ---
 
@@ -70,19 +73,16 @@ Before using this tool, you need:
 
 ### Step 2: Run
 
-1. Create a folder for CC Connect (e.g., `C:\CCConnect`)
-2. Move `CCConnect-Launcher.ps1` into that folder
-3. **Right-click** the file → **"Run with PowerShell"**
+**Right-click** the file → **"Run with PowerShell"**
+
+That's it! CC Connect will be installed globally on your first run.
 
 ### Step 3: First Time Setup
 
-The first time you run it:
-
 1. It asks if you want to install CC Connect → press `Y`
-2. CC Connect installs globally via npm
-3. Press `5` to create a desktop shortcut
-4. Press `4` to start and open the Web UI
-5. In the Web UI, configure your chat platform (Feishu is easiest - just scan a QR code!)
+2. Press `5` to create a desktop shortcut (so you don't need to find the file again)
+3. Press `4` to start and open the Web UI
+4. In the Web UI, configure your chat platform (Feishu is easiest - just scan a QR code!)
 
 ### Windows Security Notice
 
@@ -135,22 +135,34 @@ After starting CC Connect, open http://localhost:9820 to configure your chat pla
 Your Phone (Feishu/WeChat) → CC Connect → AI Agent CLI → CC Connect → Your Phone
 ```
 
-CC Connect is a bridge. It takes messages from your chat app, sends them to your AI agent, and sends the response back. That's it!
+CC Connect is a bridge. It takes messages from your chat app, sends them to your AI agent, and sends the response back. Simple as that!
 
 ---
 
 ## ⚡ Keep Your PC Running
 
-CC Connect runs as a service on your computer. If you turn off your PC, the service stops.
+CC Connect runs as a service on your computer. If you turn off your PC or it goes to sleep, the service stops and your chat bot goes offline.
 
-To keep it running overnight:
-1. **Settings** → **System** → **Power & sleep**
-2. Set **Sleep** to **Never**
+To keep it running 24/7:
 
-Or use:
-```powershell
-powercfg -change -standby-timeout-ac 0
-```
+### Method 1: Disable Sleep (Recommended)
+
+1. Press `Win + I` to open **Settings**
+2. Go to **System** → **Power & sleep** (or **电源和睡眠**)
+3. Under **Sleep** (睡眠), set it to **Never** (从不)
+4. Under **Screen** (屏幕), you can set it to turn off after a few minutes - this just turns off the display, the service keeps running
+
+### Method 2: Create a High Performance Power Plan
+
+1. Press `Win + R`, type `control`, press Enter
+2. Go to **Hardware and Sound** → **Power Options** (硬件和声音 → 电源选项)
+3. Click **Create a power plan** (创建电源计划) on the left
+4. Select **High performance** (高性能), name it "Server Mode"
+5. Set **Turn off the display** to whatever you want
+6. Set **Put the computer to sleep** to **Never**
+7. Click **Create**
+
+Now when you want to keep CC Connect running overnight, just switch to this power plan.
 
 ---
 
