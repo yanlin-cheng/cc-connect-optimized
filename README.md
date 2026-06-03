@@ -1,59 +1,105 @@
 # CC Connect Optimized
 
-An optimized version of [CC Connect](https://github.com/chenhg5/cc-connect) with a visual control panel. CC Connect bridges AI coding agents (Claude Code, Codex, Cursor, Gemini CLI) to chat platforms (Feishu/Lark, WeChat Work, DingTalk, Telegram, Slack, Discord, LINE).
+> 我用了 CC Connect 之后觉得非常好，但每天用命令行启动服务太麻烦了。所以我做了这个控制面板，双击就能用。
 
-Chat with your AI assistant from your phone, anytime.
+<p align="center">
+  <a href="https://github.com/chenhg5/cc-connect/blob/main/LICENSE">
+    <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License"/>
+  </a>
+  <a href="https://nodejs.org">
+    <img src="https://img.shields.io/badge/Node.js-18+-green.svg" alt="Node.js"/>
+  </a>
+</p>
 
-## Prerequisites
+<p align="center">
+  <a href="./README.md">English</a> | <a href="./README.zh-CN.md">中文</a>
+</p>
+
+---
+
+## 🎯 Why I Made This
+
+I've been using CC Connect to chat with my AI assistant from my phone, and it's really good. But there's one thing that bothered me:
+
+- Every day I had to open the terminal and type commands to start the service
+- After starting, I had to manually open the browser to access the Web UI
+- For daily use, this workflow was too tedious
+
+So I thought: what if there was a program where I could double-click to start everything? That would be so much easier!
+
+---
+
+## ✨ What This Does
+
+I made a simple control panel that:
+
+1. **One-click start** - Starts CC Connect and opens the Web UI automatically
+2. **Auto-install** - If CC Connect isn't installed, it installs it for you (globally via npm)
+3. **Agent detection** - Checks if you have an AI agent CLI installed before starting
+4. **Desktop shortcut** - Creates a shortcut so you can launch from your desktop
+5. **Bilingual** - Chinese and English side by side
+
+---
+
+## ⚠️ Prerequisites
 
 Before using this tool, you need:
 
 1. **Node.js**: https://nodejs.org/
-2. **An AI Agent CLI** — install at least one:
-   - **Claude Code**: https://docs.anthropic.com/en/docs/claude-code
-   - **OpenAI Codex**: https://github.com/openai/codex
-   - **Cursor**: https://cursor.sh
-   - **Gemini CLI**: https://github.com/google-gemini/gemini-cli
-   - **Qwen Code (通义千问)**: https://github.com/QwenLM/qwen-code
-   - **Tencent CodeBuddy**: https://github.com/Tencent/CodeBuddy
-   - **Xiaomi MiMo**: https://github.com/Xiaomi/mimo
+2. **An AI Agent CLI** - install at least one:
 
-> **Note**: CC Connect requires at least one AI agent CLI to run. The Web UI will not start without it.
+| Agent | Link |
+|-------|------|
+| Claude Code | https://docs.anthropic.com/en/docs/claude-code |
+| OpenAI Codex | https://github.com/openai/codex |
+| Cursor | https://cursor.sh |
+| Gemini CLI | https://github.com/google-gemini/gemini-cli |
+| Qwen Code (通义千问) | https://github.com/QwenLM/qwen-code |
+| Tencent CodeBuddy | https://github.com/Tencent/CodeBuddy |
+| Xiaomi MiMo | https://github.com/Xiaomi/mimo |
 
-## Quick Start
+> **Important**: CC Connect needs at least one AI agent CLI to run. Without it, the Web UI won't start. The script will detect this and show you a helpful error message.
 
-### 1. Download
+---
+
+## 🚀 Quick Start
+
+### Step 1: Download
 
 **[Download CCConnect-Launcher.ps1](https://github.com/yanlin-cheng/cc-connect-optimized/releases/latest/download/CCConnect-Launcher.ps1)**
 
-### 2. Run
+### Step 2: Run
 
 1. Create a folder for CC Connect (e.g., `C:\CCConnect`)
 2. Move `CCConnect-Launcher.ps1` into that folder
 3. **Right-click** the file → **"Run with PowerShell"**
 
-### 3. First Time
+### Step 3: First Time Setup
 
-1. The script will ask if you want to install CC Connect (press `Y`)
+The first time you run it:
+
+1. It asks if you want to install CC Connect → press `Y`
 2. CC Connect installs globally via npm
-3. Press `5` to create a desktop shortcut for future use
-4. Press `4` to start the service and open the Web UI
-5. In the Web UI, configure your chat platform
+3. Press `5` to create a desktop shortcut
+4. Press `4` to start and open the Web UI
+5. In the Web UI, configure your chat platform (Feishu is easiest - just scan a QR code!)
 
 ### Windows Security Notice
 
-When you run the script, Windows may show a security warning. This is normal for downloaded scripts:
+Windows may show a security warning for downloaded scripts. This is normal:
 
 1. Right-click `CCConnect-Launcher.ps1` → **Properties**
-2. At the bottom, check **"Unblock"** → Click **OK**
-3. Run the script again
+2. Check **"Unblock"** at the bottom → **OK**
+3. Run again
 
-Or run this command in PowerShell:
+Or run in PowerShell:
 ```powershell
 Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
 ```
 
-## Control Panel
+---
+
+## 📋 Control Panel
 
 ```
   =================================================
@@ -71,81 +117,65 @@ Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
   [6] Exit / 退出
 ```
 
-| Option | Description |
-|--------|-------------|
-| 1 | Start CC Connect and open the Web UI |
-| 2 | Stop the running CC Connect service |
-| 3 | Open Web UI in browser (if service is running) |
-| 4 | Start service and open Web UI (one-click) |
-| 5 | Create a desktop shortcut for quick access |
-| 6 | Exit the control panel |
+---
 
-## Chat Platform Setup
+## 💬 Chat Platform Setup
 
-After starting CC Connect, open the Web UI at http://localhost:9820 to configure your chat platform.
+After starting CC Connect, open http://localhost:9820 to configure your chat platform.
 
-### Feishu / 飞书 (Recommended)
+**[Feishu / 飞书 Setup Guide](docs/feishu-setup.md)** - Easiest! Just scan a QR code.
 
-The easiest platform — just scan a QR code with your Feishu app.
+**[WeChat Work / 企业微信 Setup Guide](docs/wecom-setup.md)** - For enterprise users.
 
-**[Feishu Setup Guide](docs/feishu-setup.md)**
+---
 
-### WeChat Work / 企业微信
-
-For enterprise use with WeChat Work.
-
-**[WeChat Work Setup Guide](docs/wecom-setup.md)**
-
-## How It Works
+## 💡 How It Works
 
 ```
-Your Phone (Feishu/WeChat)
-    ↓ Send message
-CC Connect (bridge)
-    ↓ Forward to agent
-AI Agent CLI (Claude Code/Codex/etc.)
-    ↓ Generate response
-CC Connect
-    ↓ Send back
-Your Phone (Feishu/WeChat)
+Your Phone (Feishu/WeChat) → CC Connect → AI Agent CLI → CC Connect → Your Phone
 ```
 
-## Important: Keep Your PC Running
+CC Connect is a bridge. It takes messages from your chat app, sends them to your AI agent, and sends the response back. That's it!
 
-CC Connect runs as a service on your computer. If you turn off your PC, the service stops and your chat bot goes offline.
+---
 
-**To keep it running overnight:**
+## ⚡ Keep Your PC Running
 
-1. Open **Settings** → **System** → **Power & sleep**
-2. Set **Screen** to turn off after a few minutes (saves power)
-3. Set **Sleep** to **Never** (keeps the service running)
+CC Connect runs as a service on your computer. If you turn off your PC, the service stops.
 
-Or use this command:
+To keep it running overnight:
+1. **Settings** → **System** → **Power & sleep**
+2. Set **Sleep** to **Never**
+
+Or use:
 ```powershell
 powercfg -change -standby-timeout-ac 0
 ```
 
-## Troubleshooting
+---
 
-### "No AI Agent CLI found"
+## 🔧 Troubleshooting
 
-You need to install at least one AI agent CLI. See [Prerequisites](#prerequisites) for the list of supported agents.
+| Problem | Solution |
+|---------|----------|
+| "No AI Agent CLI found" | Install one of the agents listed in Prerequisites |
+| "cc-connect is not recognized" | Restart PowerShell, the script adds npm global dir to PATH |
+| Web UI doesn't open | Check the cc-connect window for error messages, or run `cc-connect` manually |
+| "This file may harm your device" | Right-click → Properties → Unblock → OK |
 
-### "cc-connect is not recognized"
+---
 
-The script adds the npm global directory to PATH automatically. If you still see this error, try restarting PowerShell.
+## 📧 Contact
 
-### Web UI doesn't open
+- Email: yanlin.cheng@foxmail.com
 
-1. Check if the cc-connect window shows any error messages
-2. Make sure port 9820 is not used by another application
-3. Try running `cc-connect` manually in PowerShell to see the error
+---
 
-## Credits
+## 🙏 Credits
 
 - [CC Connect](https://github.com/chenhg5/cc-connect) by chenhg5
 - Optimized by yanlin-cheng with assistance from Claude Code
 
-## License
+## 📄 License
 
 MIT License
