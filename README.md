@@ -38,7 +38,7 @@ That's exactly what this program does. No more terminal, no more commands. Just 
 
 - **One click** → Service starts + browser opens automatically
 - **Auto install** → If CC Connect isn't installed, it handles it for you
-- **Smart detection** → Checks if you have an AI agent CLI before starting
+- **Smart detection** → Auto-detects and installs CC Connect if missing
 - **Desktop shortcut** → Create once, click forever
 - **Bilingual** → Chinese and English side by side
 
@@ -170,7 +170,7 @@ Now when you want to keep CC Connect running overnight, just switch to this powe
 
 | Problem | Solution |
 |---------|----------|
-| "No AI Agent CLI found" | Install one of the agents listed in Prerequisites |
+| Service fails to start | Make sure you have an AI Agent CLI installed, see Prerequisites |
 | "cc-connect is not recognized" | Restart PowerShell, the script adds npm global dir to PATH |
 | Web UI doesn't open | Check the cc-connect window for error messages, or run `cc-connect` manually |
 | "This file may harm your device" | Right-click → Properties → Unblock → OK |
