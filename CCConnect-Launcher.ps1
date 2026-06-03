@@ -25,10 +25,10 @@ function Get-CCConnectStatus {
 function Show-Status {
     $status = Get-CCConnectStatus
     switch ($status) {
-        "local"     { Write-Host "  Status: Installed (local)" -ForegroundColor Green }
-        "global"    { Write-Host "  Status: Installed (global)" -ForegroundColor Green }
-        "path"      { Write-Host "  Status: Installed (in PATH)" -ForegroundColor Green }
-        "not_found" { Write-Host "  Status: NOT INSTALLED" -ForegroundColor Yellow }
+        "local"     { Write-Host "  Status: 已安装 (本地)" -ForegroundColor Green }
+        "global"    { Write-Host "  Status: 已安装 (全局)" -ForegroundColor Green }
+        "path"      { Write-Host "  Status: 已安装 (PATH 中)" -ForegroundColor Green }
+        "not_found" { Write-Host "  Status: 未安装 / NOT INSTALLED" -ForegroundColor Yellow }
     }
     return $status
 }
@@ -154,29 +154,35 @@ while ($true) {
     Write-Host ""
     Write-Host "  =================================================" -ForegroundColor Cyan
     Write-Host "     CC Connect Control Panel" -ForegroundColor White
-    Write-Host "     Connect AI Agents to Chat Platforms" -ForegroundColor Gray
+    Write-Host "     连接 AI 代理到聊天平台" -ForegroundColor Gray
     Write-Host "  =================================================" -ForegroundColor Cyan
     Write-Host ""
 
     $status = Show-Status
 
     Write-Host ""
-    Write-Host "  [1] Start Service" -ForegroundColor White
-    Write-Host "  [2] Stop Service" -ForegroundColor White
-    Write-Host "  [3] Open Browser" -ForegroundColor White
-    Write-Host "  [4] Start and Open Browser" -ForegroundColor Green
-    Write-Host "  [5] Create Desktop Shortcut" -ForegroundColor White
-    Write-Host "  [6] Exit" -ForegroundColor White
+    Write-Host "  [1] Start Service" -ForegroundColor White -NoNewline
+    Write-Host "  /  开始服务" -ForegroundColor Gray
+    Write-Host "  [2] Stop Service" -ForegroundColor White -NoNewline
+    Write-Host "  /  停止服务" -ForegroundColor Gray
+    Write-Host "  [3] Open Browser" -ForegroundColor White -NoNewline
+    Write-Host "  /  打开浏览器" -ForegroundColor Gray
+    Write-Host "  [4] Start and Open Browser" -ForegroundColor Green -NoNewline
+    Write-Host "  /  启动并打开浏览器" -ForegroundColor Gray
+    Write-Host "  [5] Create Desktop Shortcut" -ForegroundColor White -NoNewline
+    Write-Host "  /  创建桌面快捷方式" -ForegroundColor Gray
+    Write-Host "  [6] Exit" -ForegroundColor White -NoNewline
+    Write-Host "  /  退出" -ForegroundColor Gray
     Write-Host ""
 
     # First run guidance
     if ($firstRun) {
-        Write-Host "  [TIP] First time? Press 5 to create a desktop shortcut" -ForegroundColor Yellow
-        Write-Host "        so you can launch CC Connect from your desktop!" -ForegroundColor Yellow
+        Write-Host "  [提示] 首次使用？按 5 创建桌面快捷方式" -ForegroundColor Yellow
+        Write-Host "  [TIP]  Press 5 to create a desktop shortcut" -ForegroundColor Yellow
         Write-Host ""
     }
 
-    $choice = Read-Host "  Enter your choice (1-6)"
+    $choice = Read-Host "  请输入选项 Enter your choice (1-6)"
 
     switch ($choice) {
         "1" { Start-Service; Write-Host ""; Read-Host "  Press Enter to continue" }
