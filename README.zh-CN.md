@@ -31,22 +31,15 @@ CC Connect 是一个可以把电脑上的 AI 连接到手机聊天软件的工�
 
 点击下面的链接直接下载：
 
-- [下载 CCConnect-Launcher.ps1](https://github.com/yanlin-cheng/cc-connect-optimized/releases/download/v1.0.0/CCConnect-Launcher.ps1)
-
-**关于安全警告**：
-Windows 可能会显示"可能会损害你的设备"的警告，这是正常的。因为是从网上下载的文件，Windows 会自动显示这个警告。你可以：
-1. 点击「保留」或「仍然保留」
-2. 或者点击「更多信息」→「仍要运行」
+- [下载 CCConnect-Launcher.bat](https://github.com/yanlin-cheng/cc-connect-optimized/releases/download/v1.0.0/CCConnect-Launcher.bat)
 
 **建议**：创建一个专门的文件夹，比如 `D:\MyTools\cc-connect\`，把文件放进去。
 
 ### 第 2 步：运行
 
-1. 右键点击 `CCConnect-启动器.ps1`
-2. 选择「使用 PowerShell 运行」
-3. 程序会自动：
-   - 检测是否安装了 CC Connect（没有会自动安装）
-   - 在桌面创建快捷方式
+双击 `CCConnect-Launcher.bat`，程序会自动：
+- 检测是否安装了 CC Connect（没有会自动安装）
+- 在桌面创建快捷方式
 
 ### 第 3 步：使用桌面快捷方式
 
