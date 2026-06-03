@@ -29,39 +29,23 @@ CC Connect 是一个可以把电脑上的 AI 连接到手机聊天软件的工�
 
 ### 第 1 步：下载
 
-下载这两个文件，放到同一个文件夹里：
+下载这一个文件：
 
-- [CC-Connect-启动器.bat](https://raw.githubusercontent.com/yanlin-cheng/cc-connect-optimized/main/CC-Connect-启动器.bat)
-- [cc-connect-control.ps1](https://raw.githubusercontent.com/yanlin-cheng/cc-connect-optimized/main/cc-connect-control.ps1)
+- [CCConnect-启动器.ps1](https://raw.githubusercontent.com/yanlin-cheng/cc-connect-optimized/main/CCConnect-启动器.ps1)
 
 **建议**：创建一个专门的文件夹，比如 `D:\MyTools\cc-connect\`，把文件放进去。
 
 ### 第 2 步：运行
 
-双击 `CC-Connect-启动器.bat`，会出现控制面板：
+1. 右键点击 `CCConnect-启动器.ps1`
+2. 选择「使用 PowerShell 运行」
+3. 程序会自动：
+   - 检测是否安装了 CC Connect（没有会自动安装）
+   - 在桌面创建快捷方式
 
-```
-==========================================
-  CC Connect Control Panel
-  CC Connect 控制面板
-==========================================
+### 第 3 步：使用桌面快捷方式
 
-  [1] Start Service / 启动服务
-  [2] Stop Service / 停止服务
-  [3] Open Browser / 打开浏览器
-  [4] Start + Open Browser / 启动+打开浏览器
-  [5] Exit / 退出
-
-==========================================
-```
-
-第一次运行会自动安装 CC Connect 到当前文件夹。
-
-### 第 3 步：添加桌面快捷方式
-
-右键 `CC-Connect-启动器.bat` → 创建快捷方式 → 移动到桌面
-
-以后每天双击桌面快捷方式就行。
+以后直接双击桌面的「CCConnect 启动器」就行。
 
 ---
 
@@ -100,8 +84,7 @@ powercfg /change monitor-timeout-ac 5
 
 ```
 cc-connect-优化版/
-├── CC-Connect-启动器.bat           # 启动器（双击运行）
-├── cc-connect-control.ps1          # 控制面板脚本
+├── CCConnect-启动器.ps1            # 启动器（右键运行）
 ├── README.md                       # 英文说明
 ├── README.zh-CN.md                 # 中文说明（本文件）
 └── docs/

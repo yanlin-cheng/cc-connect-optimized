@@ -29,39 +29,23 @@ CC Connect is a tool that connects AI on your computer to chat apps on your phon
 
 ### Step 1: Download
 
-Download these two files and put them in the same folder:
+Download this one file:
 
-- [CC-Connect-启动器.bat](https://raw.githubusercontent.com/yanlin-cheng/cc-connect-optimized/main/CC-Connect-启动器.bat)
-- [cc-connect-control.ps1](https://raw.githubusercontent.com/yanlin-cheng/cc-connect-optimized/main/cc-connect-control.ps1)
+- [CCConnect-启动器.ps1](https://raw.githubusercontent.com/yanlin-cheng/cc-connect-optimized/main/CCConnect-启动器.ps1)
 
-**Tip**: Create a dedicated folder, like `D:\MyTools\cc-connect\`, and put the files there.
+**Tip**: Create a dedicated folder, like `D:\MyTools\cc-connect\`, and put the file there.
 
 ### Step 2: Run
 
-Double-click `CC-Connect-启动器.bat`, and you'll see the control panel:
+1. Right-click `CCConnect-启动器.ps1`
+2. Select "Run with PowerShell"
+3. The program will automatically:
+   - Check if CC Connect is installed (install if not)
+   - Create a desktop shortcut
 
-```
-==========================================
-  CC Connect Control Panel
-  CC Connect 控制面板
-==========================================
+### Step 3: Use Desktop Shortcut
 
-  [1] Start Service / 启动服务
-  [2] Stop Service / 停止服务
-  [3] Open Browser / 打开浏览器
-  [4] Start + Open Browser / 启动+打开浏览器
-  [5] Exit / 退出
-
-==========================================
-```
-
-The first run will automatically install CC Connect to the current folder.
-
-### Step 3: Add Desktop Shortcut
-
-Right-click `CC-Connect-启动器.bat` → Create shortcut → Move to desktop
-
-Then just double-click the desktop shortcut every day.
+Just double-click the "CCConnect 启动器" shortcut on your desktop from now on.
 
 ---
 
@@ -100,8 +84,7 @@ powercfg /change monitor-timeout-ac 5
 
 ```
 cc-connect-optimized/
-├── CC-Connect-启动器.bat           # Launcher (double-click to run)
-├── cc-connect-control.ps1          # Control panel script
+├── CCConnect-启动器.ps1            # Launcher (right-click to run)
 ├── README.md                       # This file
 ├── README.zh-CN.md                 # Chinese version
 └── docs/
