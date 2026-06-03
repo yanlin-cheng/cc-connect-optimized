@@ -29,11 +29,12 @@ CC Connect 是一个可以把电脑上的 AI 连接到手机聊天软件的工�
 
 ### 第 1 步：下载
 
-点击下面的链接直接下载：
+点击下面的链接直接下载（两个文件都要下载）：
 
 - [下载 CCConnect-Launcher.bat](https://github.com/yanlin-cheng/cc-connect-optimized/releases/download/v1.0.0/CCConnect-Launcher.bat)
+- [下载 CCConnect-Launcher.ps1](https://github.com/yanlin-cheng/cc-connect-optimized/releases/download/v1.0.0/CCConnect-Launcher.ps1)
 
-**建议**：创建一个专门的文件夹，比如 `D:\MyTools\cc-connect\`，把文件放进去。
+**建议**：创建一个专门的文件夹，比如 `D:\MyTools\cc-connect\`，把两个文件都放进去。
 
 ### 第 2 步：运行
 
@@ -83,7 +84,8 @@ powercfg /change monitor-timeout-ac 5
 
 ```
 cc-connect-优化版/
-├── CCConnect-启动器.ps1            # 启动器（右键运行）
+├── CCConnect-Launcher.bat          # 启动器（双击运行）
+├── CCConnect-Launcher.ps1          # 控制面板脚本
 ├── README.md                       # 英文说明
 ├── README.zh-CN.md                 # 中文说明（本文件）
 └── docs/
