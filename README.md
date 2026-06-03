@@ -31,16 +31,17 @@ CC Connect is a tool that connects AI on your computer to chat apps on your phon
 
 Click the links below to download directly (download both files):
 
-- [Download CCConnect-Launcher.bat](https://github.com/yanlin-cheng/cc-connect-optimized/releases/download/v1.0.0/CCConnect-Launcher.bat)
+- [Download CCConnect-Launcher.vbs](https://github.com/yanlin-cheng/cc-connect-optimized/releases/download/v1.0.0/CCConnect-Launcher.vbs)
 - [Download CCConnect-Launcher.ps1](https://github.com/yanlin-cheng/cc-connect-optimized/releases/download/v1.0.0/CCConnect-Launcher.ps1)
 
 **Tip**: Create a dedicated folder, like `D:\MyTools\cc-connect\`, and put both files there.
 
 ### Step 2: Run
 
-Double-click `CCConnect-Launcher.bat`, and the program will automatically:
-- Check if CC Connect is installed (install if not)
-- Create a desktop shortcut
+Double-click `CCConnect-Launcher.vbs`, and the program will automatically:
+- Check if CC Connect is installed (local or global)
+- If not installed, ask if you want to install to current folder
+- Create a desktop shortcut after installation
 
 ### Step 3: Use Desktop Shortcut
 
@@ -84,7 +85,7 @@ powercfg /change monitor-timeout-ac 5
 
 ```
 cc-connect-optimized/
-├── CCConnect-Launcher.bat          # Launcher (double-click to run)
+├── CCConnect-Launcher.vbs          # Launcher (double-click to run)
 ├── CCConnect-Launcher.ps1          # Control panel script
 ├── README.md                       # This file
 ├── README.zh-CN.md                 # Chinese version
