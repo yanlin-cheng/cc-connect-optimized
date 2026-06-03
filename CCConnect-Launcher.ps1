@@ -86,19 +86,9 @@ function New-DesktopShortcut {
 }
 
 function Start-Service {
-    # Check AI agent (warning only, don't block)
-    $agents = Get-AgentStatus
-    if ($agents.Count -eq 0) {
-        Write-Host ""
-        Write-Host "  [WARNING] No AI Agent CLI detected / 未检测到 AI 代理" -ForegroundColor Yellow
-        Write-Host "  If the service fails to start, please install an agent." -ForegroundColor Yellow
-        Write-Host "  如果启动失败，请安装一个 AI 代理。" -ForegroundColor Yellow
-        Write-Host "  Trying to start anyway / 尝试启动中..." -ForegroundColor Cyan
-    } else {
-        Write-Host ""
-        Write-Host "  AI Agent found / 检测到代理: $($agents -join ', ')" -ForegroundColor Green
-    }
-
+    Write-Host ""
+    Write-Host "  [TIP] If the service fails to start, make sure you have an AI Agent CLI installed" -ForegroundColor Gray
+    Write-Host "  [提示] 如果启动失败，请确认已安装 AI 代理 CLI" -ForegroundColor Gray
     Write-Host ""
     Write-Host "  Starting CC Connect..." -ForegroundColor Cyan
 
@@ -196,24 +186,13 @@ if ($ccStatus -eq "not_found") {
     Write-Host "  CC Connect is installed / CC Connect 已安装" -ForegroundColor Green
 }
 
-# Check for AI agent
-$agents = Get-AgentStatus
-if ($agents.Count -eq 0) {
-    Write-Host ""
-    Write-Host "  [WARNING] No AI Agent CLI found / 未检测到 AI 代理" -ForegroundColor Yellow
-    Write-Host "  CC Connect needs an agent to work. Please install one before starting the service." -ForegroundColor Yellow
-    Write-Host "  CC Connect 需要代理才能工作。请先安装一个代理再启动服务。" -ForegroundColor Yellow
-    Write-Host ""
-    Write-Host "  Supported agents / 支持的代理:" -ForegroundColor White
-    Write-Host "  - Claude Code, Codex, Cursor, Gemini CLI" -ForegroundColor Cyan
-    Write-Host "  - Qwen Code, Tencent CodeBuddy, Xiaomi MiMo" -ForegroundColor Cyan
-    Write-Host ""
-    Start-Sleep -Seconds 3
-} else {
-    Write-Host "  AI Agent found / 检测到代理: $($agents -join ', ')" -ForegroundColor Green
-    Write-Host ""
-    Start-Sleep -Seconds 1
-}
+# Show agent info tip
+Write-Host ""
+Write-Host "  [TIP] You need an AI Agent CLI to use CC Connect" -ForegroundColor Gray
+Write-Host "  [提示] 使用 CC Connect 需要安装 AI 代理 CLI" -ForegroundColor Gray
+Write-Host "  See README for supported agents / 参见 README 中的支持列表" -ForegroundColor Gray
+Write-Host ""
+Start-Sleep -Seconds 1
 
 # ============================================================
 # Main menu loop
